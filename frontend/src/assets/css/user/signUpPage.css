@@ -1,0 +1,255 @@
+/* General page styling */
+.mainDivSignUpPage {
+    background-color: #ffffff;
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    border-radius: 30px;
+    width: 450px;
+    margin: auto;
+}
+
+.mainH1TagSignUpPage {
+    font-size: 2.8rem;
+    text-shadow: 0 0 5px rgb(0 0 0 / 70%);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
+}
+
+.mainH3TagSignUpPage {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Animation */
+.animationContainer {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    max-height: 350px; 
+    overflow: scroll;
+    overflow-x: hidden;
+    margin: 0 auto 20px;
+  
+}
+.animationContainer::-webkit-scrollbar {
+    width: 8px; /* Width of vertical scrollbar */
+}
+
+.animationContainer::-webkit-scrollbar-track {
+    background: #f0f0f0; 
+    border-radius: 10px;
+}
+
+.animationContainer::-webkit-scrollbar-thumb {
+    background-color: #000000aa; 
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.animationContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #000000; /* Darker on hover */
+}
+
+/* Firefox */
+.animationContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #000000aa white;
+}
+
+/* Button styles */
+.mainDivSignUpButton {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 12px #000000aa;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mainDivSignUpButton:hover {
+    background-color: #000000;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Signup Form styles */
+.signUpFormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 20px;
+}
+
+.inputField {
+    padding: 12px;
+    width: 250px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.signUpButton {
+    background-color: #000;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 12px #000000aa;
+}
+
+.signUpButton:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+.signUpFormContainer a {
+    margin-top: 10px;
+    color: #000;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.signUpFormContainer a:hover {
+    text-decoration: underline;
+}
+
+/* signupOtpModal.css */
+
+.otpModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .otpModal {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.4s ease;
+  }
+  
+  .otpModal h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .otpInput {
+    width: 80%;
+    padding: 0.7rem;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .otpButtonGroup {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .otpSubmitBtn,
+  .otpCloseBtn {
+    flex: 1;
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .otpSubmitBtn {
+    background-color: #000000;
+    color: white;
+  }
+  
+  .otpCloseBtn {
+    background-color: #cacaca;
+    color: rgb(36, 36, 36);
+  }
+  
+  .otpSubmitBtn:hover {
+    background-color:white ;
+    color: #000000;
+  }
+  
+  .otpCloseBtn:hover {
+    background-color: rgb(36, 36, 36);
+    color:  #cacaca;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .mainH1TagSignUpPage {
+        font-size: 2rem;
+    }
+
+    .animationContainer {
+        width: 220px;
+        height: 220px;
+    }
+
+    .mainDivSignUpButton {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainH1TagSignUpPage {
+        font-size: 1.6rem;
+    }
+
+    .animationContainer {
+        width: 180px;
+        height: 180px;
+    }
+
+    .mainDivSignUpButton {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
