@@ -3,6 +3,7 @@ import '../../../assets/css/user/signUpPage.css';
 import animationData from '../../../assets/animations/Animation - 1745402483754 (2).json';
 import { useState } from 'react';
 import api from '../../../services/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 interface signupForm{
     fullName:string,
@@ -15,7 +16,9 @@ interface signupForm{
 const  SignUpPage=()=>{
     const [showSignupForm, setShowSignupForm] = useState<boolean>(false);
     const [otpFromBackend,setOtpFromBackend]=useState<string>("")
+    const [enterdOtp,setEnterdOtp]=useState<string>("")
     const [message,setMessage]=useState<string>("")
+    const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
     const [formdata,setFormData]=useState<signupForm>({
         fullName:"",
         email:"",
@@ -23,6 +26,7 @@ const  SignUpPage=()=>{
         phone:"",
         confirmPassword:""
     })
+    const navigate=useNavigate()
 
     const handleSignupClick = (): void => {
         setShowSignupForm(true);
@@ -46,7 +50,7 @@ const  SignUpPage=()=>{
         }
 
         try {
-            const response=await api.post("/user/auth/login",{formdata})
+            const response=await api.post("/user/auth/signUp",{formdata})
             if(response.data.success){          
               return setOtpFromBackend(response.data.otp)
             }
@@ -58,12 +62,42 @@ const  SignUpPage=()=>{
         }
     }
 
+    const sendOtp=async(e:any)=>{
+      e.preventDefault()
+      if(!enterdOtp)return setMessage('Please enter otp before submission')
+        try {
+          const response = await api.post('/user/auth/submitOtp', {
+            enterdOtp,
+            otpFromBackend,
+            ...formdata, 
+          });
+          if(response.data.success){
+            setOtpFromBackend("")
+            localStorage.setItem("userId",response.data.userId)
+            setShowSuccessModal(true)
+           setTimeout(() => {
+            setShowSuccessModal(false); 
+ 
+             navigate('/');
+          }, 2000);
+    
+          return;
+          }
+        return  setMessage(response.data.message)
+          
+        } catch (error) {
+          setMessage('server error')
+          console.log('error in sendotp in signup page',error);
+          
+        }
+    }
+
     return (
         <>
         <div className='mainDivSignUpPage'>
         
-            <h3 className='mainH3TagSignUpPage'>Create Account</h3>
-            <h1 className='mainH1TagSignUpPage'>TATA MOTORS</h1>
+            <h3 className='mainH3TagSignUpPage'>Create Account On</h3>
+            <h1 className='mainH1TagSignUpPage'>BMW</h1>
 
             <div className='animationContainer'>
                 <Lottie animationData={animationData} loop autoplay />
@@ -140,16 +174,36 @@ const  SignUpPage=()=>{
         placeholder="Enter OTP"
         className="otpInput"
         maxLength={6}
+        value={enterdOtp}
+        onChange={(e) => setEnterdOtp(e.target.value)}
+        required
       />
       <div className="otpButtonGroup">
-        <button className="otpSubmitBtn">Submit</button>
-        <button className="otpCloseBtn" onClick={() => setOtpFromBackend("")}>
+        <button  className="otpSubmitBtn"
+        onClick={sendOtp}
+        >Submit</button>
+        <button className="otpCloseBtn" >
           Close
         </button>
       </div>
     </div>
   </div>
 )}
+
+{showSuccessModal && (
+  <div className="signupSuccessOverlay">
+    <div className="signupSuccessModal">
+      <img
+        src="\src\assets\images\png-transparent-bmw-car-logo.png" // adjust path based on your project
+        alt="Logo"
+        className="signupSuccessLogo"
+      />
+      <h3 className="signupSuccessTitle"> Signup Successful!</h3>
+      <p className="signupSuccessText">You can now log in to your account.</p>
+    </div>
+  </div>
+)}
+
         </>
     );
 }

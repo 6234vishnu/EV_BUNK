@@ -18,15 +18,18 @@ api.interceptors.request.use(
     const allowedRoutes = [
       "/user/auth/login",
       "/admin/auth/login",
-      "/user/signup",
+      "/user/auth/signUp",
+      "/user/auth/submitOtp",
       "/user/auth/google/callback",
       "/user/auth/googleLogin/callback",
-      "/user/verifyOtp",
-      "/user/forgotEmail",
-      "/user/resendOtp",
+      "/user/auth/verifyOtp",
+      "/user/auth/signUp",
+      "/user/auth/forgotEmail",
+      "/user/auth/resendOtp",
       "/user/verfyOtpforgot",
       "/user/passwordRegister",
       "/user/logout",
+      "/user/auth/newPassword"
     ];
 
     if (config.url && allowedRoutes.includes(config.url)) {
