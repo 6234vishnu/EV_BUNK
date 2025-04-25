@@ -1,0 +1,607 @@
+/* Admin Login Page CSS */
+
+/* Base styles */
+.adminLoginPage-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .adminLoginPage-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .adminLoginPage-content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  /* Logo side */
+  .adminLoginPage-logoContainer {
+    flex: 1;
+    background-color: #212121; /* BMW Blue */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .adminLoginPage-logo {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .adminLoginPage-logo img {
+    width: 100%;
+    height: auto;
+    animation-play-state: running !important;
+  }
+  
+  /* Form side */
+  .adminLoginPage-formSide {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+  }
+  
+  .adminLoginPage-animation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+
+  
+  .adminLoginPage-formContainer {
+    flex: 2;
+  }
+  
+  .adminLoginPage-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .adminLoginPage-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .adminLoginPage-form {
+    width: 100%;
+  }
+  
+  .adminLoginPage-inputGroup {
+    margin-bottom: 20px;
+  }
+  
+  .adminLoginPage-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .adminLoginPage-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .adminLoginPage-input:focus {
+    border-color: #060606;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 102, 177, 0.2);
+  }
+  
+  .adminLoginPage-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .adminLoginPage-rememberMe {
+    display: flex;
+    align-items: center;
+  }
+  
+  .adminLoginPage-checkbox {
+    margin-right: 8px;
+  }
+  
+  .adminLoginPage-checkboxLabel {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .adminLoginPage-forgotPassword {
+    font-size: 14px;
+    color: #0066B1;
+    text-decoration: none;
+  }
+  
+  .adminLoginPage-forgotPassword:hover {
+    text-decoration: underline;
+  }
+  
+  .adminLoginPage-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #212121;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .adminLoginPage-button:hover {
+    color: #030303;
+    background-color: #ffffff;
+    
+  }
+  .adminLoginPage-forgotOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .adminLoginPage-forgotModal {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .adminLoginPage-forgotModal h2 {
+    margin-bottom: 10px;
+  }
+  
+  .adminLoginPage-forgotModal p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .adminLoginPage-forgotModal input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  
+  .adminLoginPage-forgotModal button {
+    width: 100%;
+    padding: 10px;
+    background: #121212;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .adminLoginPage-forgotModal button:hover {
+    background:white ;
+    color: #1a1a1a;
+  }
+  
+  .adminLoginPage-closeBtn {
+    background: transparent;
+    background-color: rgb(254, 254, 254);
+    color: #040404;
+    text-decoration: underline;
+    margin-top: 10px;
+  }
+/* Mobile devices (up to 480px) */
+@media screen and (max-width: 480px) {
+  .adminLoginPage-forgotModal {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+  }
+
+  .adminLoginPage-forgotModal h2 {
+    font-size: 18px;
+  }
+
+  .adminLoginPage-forgotModal p {
+    font-size: 13px;
+  }
+
+  .adminLoginPage-forgotModal input,
+  .adminLoginPage-forgotModal button {
+    font-size: 13px;
+    padding: 8px;
+    
+  }
+}
+
+.otpModal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.otpModal-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.otpModal-container h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.otpModal-inputWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.otpModal-input {
+  width: 40px;
+  height: 50px;
+  font-size: 20px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.otpModal-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+.otpModal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.otpModal-submitBtn,
+.otpModal-closeBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.otpModal-submitBtn {
+  background-color: #090909;
+  color: white;
+}
+
+.otpModal-submitBtn:hover {
+  background-color: #1a1a1a;
+}
+
+.otpModal-closeBtn {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.otpModal-closeBtn:hover {
+  background-color: #ddd;
+}
+.newPasswordModal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.newPasswordModal-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.newPasswordModal-container h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.newPasswordModal-input {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.newPasswordModal-input:focus {
+  border-color: #2c2d2d;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+.newPasswordModal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.newPasswordModal-submitBtn,
+.newPasswordModal-closeBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.newPasswordModal-submitBtn {
+  background-color: #181818;
+  color: white;
+}
+
+.newPasswordModal-submitBtn:hover {
+  background-color: #111111;
+}
+
+.newPasswordModal-closeBtn {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.newPasswordModal-closeBtn:hover {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 480px) {
+  .newPasswordModal-container {
+    padding: 20px;
+  }
+
+  .newPasswordModal-input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .newPasswordModal-submitBtn,
+  .newPasswordModal-closeBtn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .newPasswordModal-container {
+    max-width: 90%;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .otpModal-input {
+    width: 35px;
+    height: 45px;
+    font-size: 18px;
+  }
+
+  .otpModal-container {
+    padding: 20px;
+  }
+
+  .otpModal-submitBtn,
+  .otpModal-closeBtn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .otpModal-container {
+    max-width: 90%;
+  }
+
+  .otpModal-inputWrapper {
+    gap: 8px;
+  }
+}
+
+
+/* Tablets (481px to 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .adminLoginPage-forgotModal {
+    padding: 25px;
+    max-width: 85%;
+  }
+
+  .adminLoginPage-forgotModal h2 {
+    font-size: 20px;
+  }
+
+  .adminLoginPage-forgotModal p {
+    font-size: 14px;
+  }
+
+  .adminLoginPage-forgotModal input,
+  .adminLoginPage-forgotModal button {
+    font-size: 14px;
+    padding: 9px;
+  }
+}
+
+/* Medium to Large Screens (769px and up) */
+@media screen and (min-width: 769px) {
+  .adminLoginPage-forgotModal {
+    padding: 30px;
+    max-width: 400px;
+  }
+}
+  
+  
+  /* Animation for the logo spinning */
+  @keyframes logoSpin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .adminLoginPage-logo img {
+    animation: logoSpin 20s linear infinite;
+    animation-play-state: paused;
+  }
+  
+  .adminLoginPage-logo:hover img {
+    animation-play-state: running;
+  }
+  
+  /* Responsive media queries */
+  @media screen and (max-width: 1024px) {
+    .adminLoginPage-content {
+      flex-direction: column;
+    }
+    
+    .adminLoginPage-logoContainer {
+      padding: 30px;
+    }
+    
+    .adminLoginPage-formSide {
+      padding: 30px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .adminLoginPage-wrapper {
+      width: 95%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .adminLoginPage-logoContainer {
+      padding: 25px;
+    }
+    
+    .adminLoginPage-logo {
+      width: 120px;
+      height: 120px;
+    }
+    
+    .adminLoginPage-formSide {
+      padding: 25px;
+    }
+    
+    .adminLoginPage-title {
+      font-size: 24px;
+    }
+    
+    .adminLoginPage-subtitle {
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .adminLoginPage-wrapper {
+      width: 100%;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    
+    .adminLoginPage-logoContainer {
+      padding: 20px;
+    }
+    
+    .adminLoginPage-logo {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .adminLoginPage-formSide {
+      padding: 20px;
+    }
+    
+    .adminLoginPage-animation {
+      margin-bottom: 15px;
+    }
+    
+
+    
+    .adminLoginPage-title {
+      font-size: 22px;
+    }
+    
+    .adminLoginPage-options {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .adminLoginPage-forgotPassword {
+      margin-top: 10px;
+    }
+    
+    .adminLoginPage-button {
+      padding: 12px;
+    }
+  }

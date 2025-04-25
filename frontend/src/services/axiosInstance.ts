@@ -18,6 +18,8 @@ api.interceptors.request.use(
     const allowedRoutes = [
       "/user/auth/login",
       "/admin/auth/login",
+      "/admin/auth/forgotEmail",
+      "/admin/auth/newPassword",
       "/user/auth/signUp",
       "/user/auth/submitOtp",
       "/user/auth/google/callback",
