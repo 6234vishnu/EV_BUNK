@@ -196,7 +196,7 @@ const [otpFrombackend,setotpFrombackend]= useState<string>('');
       {showForgotModal && (
         <div className="forgotModalOverlay">
           <div className="forgotModal">
-            <img src="\src\assets\images\png-transparent-bmw-car-logo.png" alt="Logo" className="forgotModalLogo" />
+            <img src="\images\png-transparent-bmw-car-logo.png" alt="Logo" className="forgotModalLogo" />
             <h3 style={{color:"black"}}>Reset Password</h3>
             <input
               type="email"
@@ -218,7 +218,7 @@ const [otpFrombackend,setotpFrombackend]= useState<string>('');
 {showOtpModal && (
   <div className="forgotModalOverlay">
     <div className="forgotModal">
-      <img src="\src\assets\images\png-transparent-bmw-car-logo.png" alt="Logo" className="forgotModalLogo" />
+      <img src="\images\png-transparent-bmw-car-logo.png" alt="Logo" className="forgotModalLogo" />
       <h6 style={{color:"red"}}>{message}</h6>
       <h3 style={{color:"black"}}>Enter OTP</h3>
 
@@ -263,7 +263,7 @@ const [otpFrombackend,setotpFrombackend]= useState<string>('');
    <div className="forgotModalOverlay">
    <div className="forgotModal">
      <img
-       src="\src\assets\images\png-transparent-bmw-car-logo.png"
+       src="\images\png-transparent-bmw-car-logo.png"
        alt="Logo"
        className="forgotModalLogo"
      />

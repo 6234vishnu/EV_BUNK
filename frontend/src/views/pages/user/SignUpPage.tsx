@@ -194,7 +194,7 @@ const  SignUpPage=()=>{
   <div className="signupSuccessOverlay">
     <div className="signupSuccessModal">
       <img
-        src="\src\assets\images\png-transparent-bmw-car-logo.png" // adjust path based on your project
+        src="\images\png-transparent-bmw-car-logo.png" // adjust path based on your project
         alt="Logo"
         className="signupSuccessLogo"
       />

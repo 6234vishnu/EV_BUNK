@@ -12,7 +12,7 @@ api.defaults.withCredentials = true;
 api.interceptors.request.use(
   async (config) => {
     const token =
-      localStorage.getItem("userToken") || localStorage.getItem("token");
+      localStorage.getItem("userId") || localStorage.getItem("adminId");
 
       
     const allowedRoutes = [
@@ -31,7 +31,8 @@ api.interceptors.request.use(
       "/user/verfyOtpforgot",
       "/user/passwordRegister",
       "/user/logout",
-      "/user/auth/newPassword"
+      "/user/auth/newPassword",
+ 
     ];
 
     if (config.url && allowedRoutes.includes(config.url)) {
@@ -59,6 +60,8 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log('axios instance error',error);
+    
     return Promise.reject(error);
   }
 );

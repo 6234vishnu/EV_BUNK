@@ -145,7 +145,7 @@ const AdminLoginPage: React.FC = () => {
             {/* BMW logo placeholder */}
             <div className="adminLoginPage-logo">
           
-              <img style={{borderRadius:"80px"}} src="\src\assets\images\png-transparent-bmw-car-logo.png" alt="BMW Logo" />
+              <img style={{borderRadius:"80px"}} src="\images\png-transparent-bmw-car-logo.png" alt="BMW Logo" />
             </div>
           </div>
           
