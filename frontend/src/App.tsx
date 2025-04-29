@@ -7,6 +7,7 @@ import AdminLoginPage from './views/pages/admin/AdminLoginPage'
 import AdminDashboard from './views/pages/admin/AdminDashboard'
 import UserChargingBunkPage from './views/pages/user/userChargingBunkPage'
 import AdminEvBunkPage from './views/pages/admin/AdminEvBunkPage'
+import BunkListPage from './views/pages/user/BunkListPage'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Route path='/SignUp' element={<SignUpPage/>}/>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/user/EvBunkPage' element={<UserChargingBunkPage/>}/>
+      <Route path='/user/BunkList' element={<BunkListPage/>}/>
 
       {/*admin Side */}
 

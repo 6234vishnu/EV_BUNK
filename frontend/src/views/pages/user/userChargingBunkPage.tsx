@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../../assets/css/user/userChargingBunk.css';
+import { useLocation } from 'react-router-dom';
 
 interface BunkInfo {
   name: string;
@@ -10,6 +11,10 @@ interface BunkInfo {
 }
 
 const UserChargingBunkPage: React.FC = () => {
+  const { state } = useLocation();
+  const bunkId = state?.bunkId;
+  console.log('bunkData',bunkId);
+  
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState('info');
   
@@ -34,7 +39,7 @@ const UserChargingBunkPage: React.FC = () => {
       <div className="adminEvBunkPage__container">
         <div className="adminEvBunkPage__header">
           <h1 className="adminEvBunkPage__title">
-            <span className="adminEvBunkPage__title-animation">{bunkInfo.name}</span>
+            <span style={{color:"white"}} className="adminEvBunkPage__title-animation">{bunkInfo.name}</span>
           </h1>
           <div className="adminEvBunkPage__tabs">
             <button 
@@ -58,8 +63,7 @@ const UserChargingBunkPage: React.FC = () => {
               {/* Placeholder for car image */}
               <div className="adminEvBunkPage__car-silhouette"></div>
               <div className="adminEvBunkPage__charge-animation">
-                <div className="adminEvBunkPage__charge-bolt"></div>
-                <div className="adminEvBunkPage__charge-circle"></div>
+
               </div>
             </div>
           </div>
@@ -80,10 +84,10 @@ const UserChargingBunkPage: React.FC = () => {
               </div>
               
               <div className="adminEvBunkPage__cta-container">
-                <button className="adminEvBunkPage__cta-button">
+                <button style={{color:"black"}} className="adminEvBunkPage__cta-button">
                   Book a Charge
                 </button>
-                <button className="adminEvBunkPage__cta-button adminEvBunkPage__cta-button--secondary">
+                <button style={{color:"black"}} className="adminEvBunkPage__cta-button adminEvBunkPage__cta-button--secondary">
                   View Availability
                 </button>
               </div>

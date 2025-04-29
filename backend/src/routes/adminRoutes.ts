@@ -3,6 +3,7 @@ import { loginController,forgotPasswordSendOtp,setNewPassword } from '../control
 import {createBunk} from '../controllers/adminControllers/AdminRolesController'
 const adminRoutes=express.Router()
 
+
 adminRoutes.post('/auth/login',loginController)
 adminRoutes.post('/auth/forgotEmail',forgotPasswordSendOtp)
 adminRoutes.post('/auth/newPassword',setNewPassword)
