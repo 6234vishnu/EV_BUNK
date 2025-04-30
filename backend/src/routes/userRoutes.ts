@@ -1,6 +1,6 @@
 import express from 'express'
 import { userLogin,signUpController,createUser,setOtpForgotPassword,ResetPassword } from '../controllers/userControllers/authControllers'
-import {getBunks} from "../controllers/userControllers/activitiesController"
+import {getBunks,bookingBunk} from "../controllers/userControllers/activitiesController"
 const userRoute=express.Router()
 
 
@@ -13,6 +13,7 @@ userRoute.post('/auth/newPassword',ResetPassword)
 
 // user Activities
 userRoute.get('/getBunkList',getBunks)
+userRoute.post('/bookBunk',bookingBunk)
 
 
 

@@ -8,6 +8,7 @@ import AdminDashboard from './views/pages/admin/AdminDashboard'
 import UserChargingBunkPage from './views/pages/user/userChargingBunkPage'
 import AdminEvBunkPage from './views/pages/admin/AdminEvBunkPage'
 import BunkListPage from './views/pages/user/BunkListPage'
+import NewCarsShowcase from './views/pages/user/NewCarsShowcase'
 
 
 function App() {
@@ -23,8 +24,9 @@ function App() {
       <Route path='/' element={<HomePage/>}/>
       <Route path='/SignUp' element={<SignUpPage/>}/>
       <Route path='/login' element={<LoginPage/>}/>
-      <Route path='/user/EvBunkPage' element={<UserChargingBunkPage/>}/>
       <Route path='/user/BunkList' element={<BunkListPage/>}/>
+      <Route path='/user/EvBunkPage' element={<UserChargingBunkPage/>}/>
+      <Route path='/user/latestCars' element={<NewCarsShowcase/>}/>
 
       {/*admin Side */}
 

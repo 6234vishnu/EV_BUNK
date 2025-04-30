@@ -62,7 +62,7 @@ const AdminEvBunkPage: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessage("")
-    }, 3000)
+    }, 4000)
     return () => clearTimeout(timer)
   }, [message])
 
@@ -436,21 +436,26 @@ if (!isValid) {
                 </div>
             
                 {/* Charging Type */}
-                <div className="adminEvBunkPage__form-group">
-                  <label htmlFor="chargingType" className="adminEvBunkPage__form-label">
-                    Charging Type <span className="adminEvBunkPage__required">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="chargingType"
-                    name="chargingType"
-                    value={formData.chargingType}
-                    onChange={handleInputChange}
-                    className={`adminEvBunkPage__form-input ${formErrors.chargingType ? 'adminEvBunkPage__form-input--error' : ''}`}
-                    placeholder="Enter charging type (e.g., DC Fast)"
-                  />
-                  {formErrors.chargingType && <div className="adminEvBunkPage__error-message">{formErrors.chargingType}</div>}
-                </div>
+<div className="adminEvBunkPage__form-group">
+  <label htmlFor="chargingType" className="adminEvBunkPage__form-label">
+    Charging Type <span className="adminEvBunkPage__required">*</span>
+  </label>
+  <select
+    id="chargingType"
+    name="chargingType"
+    value={formData.chargingType}
+    onChange={handleInputChange}
+    className={`adminEvBunkPage__form-input ${formErrors.chargingType ? 'adminEvBunkPage__form-input--error' : ''}`}
+  >
+    <option value="">Select charging type</option>
+    <option value="AC">AC</option>
+    <option value="DC">DC</option>
+  </select>
+  {formErrors.chargingType && (
+    <div className="adminEvBunkPage__error-message">{formErrors.chargingType}</div>
+  )}
+</div>
+
             
                 {/* Supported Connectors */}
                 <div className="adminEvBunkPage__form-group">

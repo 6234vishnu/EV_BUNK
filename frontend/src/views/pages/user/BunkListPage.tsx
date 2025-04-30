@@ -211,7 +211,7 @@ const BunkListPage: React.FC = () => {
                       disabled={!bunk.allowBooking}
                       onClick={() => {
                         if (bunk.allowBooking) {
-                          navigate(`/user/EvBunkPage`,{ state: { bunkId: bunk._id } });
+                          navigate(`/user/EvBunkPage`,{ state: { bunk: bunk } });
                         }
                       }}
                     >
