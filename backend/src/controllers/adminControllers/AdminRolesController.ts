@@ -8,10 +8,10 @@ export const createBunk = async (req: Request, res: Response): Promise<any> => {
   try {
 
    
-    const { name, address, city, contactNo, mapEmbed, totalPorts, availablePorts, chargingType, supportedConnectors, pricePerKWh, flatRate, is24Hours, status, allowBooking } = req.body;
+    const { name, address, city, contactNo,longitude,latitude, mapEmbed, totalPorts, availablePorts, chargingType, supportedConnectors, pricePerKWh, flatRate, is24Hours, status, allowBooking } = req.body;
 
 
-    if (!name || !address || !city || !contactNo || !mapEmbed || totalPorts <= 0 || !supportedConnectors || supportedConnectors.length === 0) {
+    if (!name || !address || !city || !longitude || !latitude || !contactNo || !mapEmbed || totalPorts <= 0 || !supportedConnectors || supportedConnectors.length === 0) {
       return res.status(200).json({ success: false, message: "Missing required fields or invalid data." });
     }
 
@@ -40,7 +40,13 @@ export const createBunk = async (req: Request, res: Response): Promise<any> => {
       flatRate,
       is24Hours,
       status,
-      allowBooking
+      allowBooking,
+      latitude,
+  longitude,
+  location: {
+    type: 'Point',
+    coordinates: [longitude, latitude] // IMPORTANT: longitude first
+  }
     });
 
    

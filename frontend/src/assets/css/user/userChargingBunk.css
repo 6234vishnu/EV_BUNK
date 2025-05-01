@@ -611,6 +611,8 @@
   color: #555;
 }
 
+
+
 /* Media query for smaller screens */
 @media (max-width: 768px) {
   .BookingSuccessUserModalContent {

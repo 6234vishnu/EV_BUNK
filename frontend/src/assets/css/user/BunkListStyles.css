@@ -342,6 +342,174 @@
     border: 1px solid #ccc;
     transition: all 0.3s ease;
   }
+
+  .findNearestBunk__modalOverlay{
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+  }
+
+
+  /* Modal container - black and white theme */
+.findNearestBunk__container {
+  background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Title inside modal */
+.findNearestBunk__title {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  color: #000; /* Black text for title */
+}
+
+/* Card styles */
+.findNearestBunk__card {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin: 1rem auto;
+}
+
+/* Card headings */
+.findNearestBunk__card h3 {
+  margin: 0.5rem 0;
+  color: #000; /* Black text for heading */
+  font-size: 1.4rem;
+}
+
+/* Card paragraph styles */
+.findNearestBunk__card p {
+  margin: 0.3rem 0;
+  color: #555; /* Dark gray for text */
+  font-size: 1rem;
+}
+
+/* Loading text */
+.findNearestBunk__loading {
+  color: #888; /* Light gray for loading */
+  font-size: 1rem;
+}
+
+/* Button styles (Open Button) */
+.findNearestBunk__openButton {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 20px;
+  background-color: #000; /* Black background */
+  color: white; /* White text */
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  z-index: 9999; /* Ensure it's above other content */
+  font-size: 1rem;
+}
+
+.findNearestBunk__openButton:hover {
+  background-color: #444; /* Darker black on hover */
+}
+
+/* Modal overlay - Black background with transparency */
+.findNearestBunk__modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1040; /* Overlay should be just below the modal container */
+}
+
+/* Close button inside modal */
+.findNearestBunk__closeButton {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: #000; /* Black background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.findNearestBunk__closeButton:hover {
+  background-color: #444; /* Darker black on hover */
+}
+
+/* Ensure modal content does not overflow */
+.findNearestBunk__card, .findNearestBunk__container {
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.bunk-close-button{
+  background-color: white;
+  color: black;
+}
+
+/* Make modal responsive */
+@media (max-width: 768px) {
+  .findNearestBunk__container {
+    max-width: 90%; /* Make the modal container responsive on smaller screens */
+  }
+}
+
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .findNearestBunk__container {
+      padding: 1.2rem;
+    }
+  
+    .findNearestBunk__title {
+      font-size: 1.5rem;
+    }
+  
+    .findNearestBunk__card {
+      padding: 1rem;
+    }
+  
+    .findNearestBunk__card h3 {
+      font-size: 1.2rem;
+    }
+  
+    .findNearestBunk__card p {
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .findNearestBunk__title {
+      font-size: 1.3rem;
+    }
+  
+    .findNearestBunk__card h3 {
+      font-size: 1rem;
+    }
+  
+    .findNearestBunk__card p {
+      font-size: 0.9rem;
+    }
+  }
+  
   
   /* Tablet */
   @media (max-width: 768px) {

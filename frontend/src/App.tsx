@@ -11,6 +11,7 @@ import BunkListPage from './views/pages/user/BunkListPage'
 import NewCarsShowcase from './views/pages/user/NewCarsShowcase'
 
 
+
 function App() {
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route path='/user/BunkList' element={<BunkListPage/>}/>
       <Route path='/user/EvBunkPage' element={<UserChargingBunkPage/>}/>
       <Route path='/user/latestCars' element={<NewCarsShowcase/>}/>
+  
 
       {/*admin Side */}
 
