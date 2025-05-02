@@ -1,0 +1,90 @@
+.bunkdetailsUpdateAdmin-container {
+    background-color: #000;
+    color: white;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  
+  .bunkdetailsUpdateAdmin-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .bunkdetailsUpdateAdmin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .bunkdetailsUpdateAdmin-card {
+    background-color: #111;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+    transition: transform 0.3s ease;
+  }
+  
+  .bunkdetailsUpdateAdmin-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .bunkdetailsUpdateAdmin-card h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+  }
+  
+  .bunkdetailsUpdateAdmin-form input,
+  .bunkdetailsUpdateAdmin-form select {
+    width: 100%;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+  }
+  
+  .bunkdetailsUpdateAdmin-form label {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  
+  .bunkdetailsUpdateAdmin-form button,
+  .bunkdetailsUpdateAdmin-card button {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .bunkdetailsUpdateAdmin-form button:hover,
+  .bunkdetailsUpdateAdmin-card button:hover {
+    opacity: 0.8;
+  }
+  
+  /* 🔄 Responsive Design */
+  @media (max-width: 768px) {
+    .bunkdetailsUpdateAdmin-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .bunkdetailsUpdateAdmin-container {
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .bunkdetailsUpdateAdmin-form input,
+    .bunkdetailsUpdateAdmin-form select {
+      font-size: 14px;
+    }
+  
+    .bunkdetailsUpdateAdmin-card h2 {
+      font-size: 1.1rem;
+    }
+  }
+  

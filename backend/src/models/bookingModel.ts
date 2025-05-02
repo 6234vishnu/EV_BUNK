@@ -8,7 +8,7 @@ export interface IBooking extends Document {
   vehicleNumber: string;
   connectorType: string;
   chargingType: "AC" | "DC";
-  status: "Booked" | "Cancelled" | "Completed";
+  status: "Booked" | "Cancelled" | "Completed" | "Charging";
   price: number;
   createdAt: Date;
 }

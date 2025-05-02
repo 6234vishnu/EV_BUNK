@@ -1,0 +1,557 @@
+/* BookingListAdmin.css */
+/* Base styles with BMW brand theme */
+:root {
+    --primary-bg: #ffffff;
+    --secondary-bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --primary-text: #000000;
+    --secondary-text: #4a4a4a;
+    --border-color: #e0e0e0;
+    --accent-color: #2c2c2c;
+    
+    /* BMW brand colors */
+    --bmw-blue: #000000;
+    --bmw-dark-blue: #000000;
+    --bmw-red: #000000;
+    --bmw-light-gray: #f2f2f2;
+    --bmw-dark-gray: #333333;
+    
+    /* Status colors */
+    --status-booked: #ffc107;
+    --status-charging: var(--bmw-blue);
+    --status-completed: #070707;
+    --status-cancelled: var(--bmw-red);
+    
+    /* Button colors */
+    --btn-charging: var(--bmw-blue);
+    --btn-charging-hover: var(--bmw-dark-blue);
+    --btn-complete: #198754;
+    --btn-complete-hover: #146c43;
+    --btn-cancel: var(--bmw-red);
+    --btn-cancel-hover: #aa0000;
+  }
+  
+  /* BMW Branding Elements */
+  .bookingListAdmin-branding {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+
+  }
+  
+  .bookingListAdmin-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .bookingListAdmin-logo-container:hover {
+    transform: scale(1.05);
+  }
+  
+  .bookingListAdmin-logo-container.animate .bookingListAdmin-bmw-circle {
+    animation: spin 2s ease-in-out;
+  }
+  
+  .bookingListAdmin-logo {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .bookingListAdmin-bmw-logo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  .bookingListAdmin-bmw-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #000;
+    position: relative;
+    background: var(--bmw-dark-gray);
+  }
+  
+  .bookingListAdmin-bmw-blue, 
+  .bookingListAdmin-bmw-white, 
+  .bookingListAdmin-bmw-red {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+  }
+  
+  .bookingListAdmin-bmw-blue {
+    top: 0;
+    left: 0;
+    background-color: var(--bmw-blue);
+  }
+  
+  .bookingListAdmin-bmw-white:nth-of-type(2) {
+    top: 0;
+    right: 0;
+    background-color: white;
+  }
+  
+  .bookingListAdmin-bmw-red {
+    bottom: 0;
+    right: 0;
+    background-color: var(--bmw-red);
+  }
+  
+  .bookingListAdmin-bmw-white:nth-of-type(4) {
+    bottom: 0;
+    left: 0;
+    background-color: white;
+  }
+  
+  .bookingListAdmin-brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bookingListAdmin-brand-text h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color:white;
+    letter-spacing: 1px;
+  }
+  
+  .bookingListAdmin-brand-text h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0;
+    color: gray;
+  }
+  
+  /* Container and layout */
+  .bookingListAdmin-container {
+    width:100vw;
+    margin: 0 auto;
+    padding: 2rem;
+    
+    min-height: 100vh;
+  }
+  
+  .bookingListAdmin-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  
+  .bookingListAdmin-header h1 {
+    color: white;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 3px solid rgb(173, 173, 173);
+    padding-bottom: 0.75rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .bookingListAdmin-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .bookingListAdmin-search {
+    flex-grow: 1;
+    max-width: 500px;
+  }
+  
+  .bookingListAdmin-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--primary-text);
+    background-color: var(--card-bg);
+    transition: all 0.2s ease;
+  }
+  
+  .bookingListAdmin-search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(44, 44, 44, 0.2);
+  }
+  
+  .bookingListAdmin-filter {
+    min-width: 180px;
+  }
+  
+  .bookingListAdmin-filter-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--primary-text);
+    background-color: var(--card-bg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .bookingListAdmin-filter-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+  }
+  
+  /* Grid layout for booking cards */
+  .bookingListAdmin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* Booking card styles */
+  .bookingListAdmin-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color);
+    position: relative;
+  }
+  
+  .bookingListAdmin-card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--bmw-blue), var(--bmw-red));
+  }
+  
+  .bookingListAdmin-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bookingListAdmin-bmw-indicator {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  
+  .bookingListAdmin-bmw-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    transition: background-color 0.3s ease;
+  }
+  
+  .bookingListAdmin-bmw-dot:nth-child(1) {
+    background-color: var(--bmw-blue);
+  }
+  
+  .bookingListAdmin-bmw-dot:nth-child(2) {
+    background-color: var(--bmw-dark-gray);
+  }
+  
+  .bookingListAdmin-bmw-dot:nth-child(3) {
+    background-color: var(--bmw-red);
+  }
+  
+  .bookingListAdmin-card:hover .bookingListAdmin-bmw-dot {
+    animation: pulseIndicator 1.5s infinite alternate;
+  }
+  
+  .bookingListAdmin-card:hover .bookingListAdmin-bmw-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .bookingListAdmin-card:hover .bookingListAdmin-bmw-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes pulseIndicator {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.3);
+      opacity: 1;
+    }
+  }
+  
+  .bookingListAdmin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bmw-light-gray);
+  }
+  
+  .bookingListAdmin-status-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .bookingListAdmin-status-booked {
+    background-color: white;
+    color: #000000;
+    box-shadow: 0px 3px 14px 8px rgb(4 4 4 / 20%);
+}
+  
+  .bookingListAdmin-status-charging {
+    background-color: white;
+    color: #000000;
+    box-shadow: 0px 3px 14px 8px rgb(4 4 4 / 20%);
+  }
+  
+  .bookingListAdmin-status-completed {
+    background-color: white;
+    color: #000000;
+    box-shadow: 0px 3px 14px 8px rgb(4 4 4 / 20%);
+  }
+  
+  .bookingListAdmin-status-cancelled {
+    background-color: white;
+    color: #000000;
+    box-shadow: 0px 3px 14px 8px rgb(4 4 4 / 20%);
+  }
+  
+  .bookingListAdmin-price {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--primary-text);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .bookingListAdmin-card-body {
+    padding: 1rem;
+  }
+  
+  .bookingListAdmin-info-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--secondary-text);
+  }
+  
+  .bookingListAdmin-vehicle-number {
+    font-weight: 600;
+    color: var(--primary-text);
+    text-transform: uppercase;
+  }
+  
+  .bookingListAdmin-card-actions {
+    padding: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  /* Button styles */
+  .bookingListAdmin-btn {
+    padding: 0.65rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bookingListAdmin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .bookingListAdmin-btn:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(to right, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .bookingListAdmin-btn:hover:after {
+    left: 100%;
+  }
+  
+  .bookingListAdmin-btn-charging {
+    background-color: var(--btn-charging);
+    color: #ffffff;
+  }
+  
+  .bookingListAdmin-btn-charging:hover {
+    background-color: var(--btn-charging-hover);
+  }
+  
+  .bookingListAdmin-btn-complete {
+    background-color:black;
+    color: #ffffff;
+  }
+  
+  .bookingListAdmin-btn-complete:hover {
+    background-color: rgb(40, 40, 40);
+  }
+  
+  .bookingListAdmin-btn-cancel {
+    background-color: var(--btn-cancel);
+    color: #ffffff;
+  }
+  
+  .bookingListAdmin-btn-cancel:hover {
+    background-color: var(--btn-cancel-hover);
+  }
+  
+  .bookingListAdmin-status-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+  }
+  
+  /* Loading and empty states */
+  .bookingListAdmin-loading,
+  .bookingListAdmin-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--secondary-text);
+  }
+  
+  .bookingListAdmin-loading-icon {
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Media queries for responsiveness */
+  @media screen and (max-width: 1024px) {
+    .bookingListAdmin-container {
+      padding: 1.5rem;
+    }
+    
+    .bookingListAdmin-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .bookingListAdmin-container {
+      padding: 1rem;
+    }
+    
+    .bookingListAdmin-header {
+      margin-bottom: 1.5rem;
+    }
+    
+    .bookingListAdmin-header h1 {
+      font-size: 1.8rem;
+    }
+    
+    .bookingListAdmin-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .bookingListAdmin-search,
+    .bookingListAdmin-filter {
+      max-width: 100%;
+    }
+    
+    .bookingListAdmin-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .bookingListAdmin-branding {
+      padding: 0.75rem 0;
+    }
+    
+    .bookingListAdmin-logo {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .bookingListAdmin-brand-text h2 {
+      font-size: 1.5rem;
+    }
+    
+    .bookingListAdmin-brand-text h3 {
+      font-size: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .bookingListAdmin-card-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .bookingListAdmin-card-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .bookingListAdmin-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .bookingListAdmin-header h1 {
+      font-size: 1.5rem;
+    }
+  }

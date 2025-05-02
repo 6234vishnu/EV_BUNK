@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Bunk from "../../models/bunkSchema";
 import { v2 as cloudinary } from 'cloudinary';
+import Booking from '../../models/bookingModel'
 
 
 export const createBunk = async (req: Request, res: Response): Promise<any> => {
@@ -73,3 +74,59 @@ export const createBunk = async (req: Request, res: Response): Promise<any> => {
     });
   }
 };
+
+export const getBookings = async (req: Request, res: Response): Promise<any> => {
+
+  try {
+    const getBooking=await Booking.find().sort({ createdAt: -1 });
+    if(!getBooking) return res.status(200).json({
+      success: false,
+      message: "Internal server error, try again later.",
+    });
+
+    return res.status(200).json({
+      success: true,
+      bookings:getBooking
+    });
+  } catch (error) {
+    console.log('Error in createBunk in getBookings:', error);
+    
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error, try again later.",
+    });
+  }
+}
+
+export const updateBookingStatus = async (req: Request, res: Response): Promise<any> => {
+try {
+  const {bookingId,status}=req.body
+
+  const updateBookingStatus=await Booking.findByIdAndUpdate(bookingId,{$set:{status}},{new:true})
+  if(!updateBookingStatus) return res.status(200).json({
+    success: false,
+    message: "Internal server error, try again later.",
+  });
+  return res.status(200).json({
+    success: true,
+
+  });
+} catch (error) {
+  console.log('Error in updateBookingStatus:', error);
+    
+  return res.status(500).json({
+    success: false,
+    message: "Internal server error, try again later.",
+  });
+}
+}
+
+export const getBunksList = async (req: Request, res: Response): Promise<any> => {
+try {
+  
+
+  
+} catch (error) {
+  
+}
+}

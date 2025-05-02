@@ -9,6 +9,8 @@ import UserChargingBunkPage from './views/pages/user/userChargingBunkPage'
 import AdminEvBunkPage from './views/pages/admin/AdminEvBunkPage'
 import BunkListPage from './views/pages/user/BunkListPage'
 import NewCarsShowcase from './views/pages/user/NewCarsShowcase'
+import BookingListAdmin from './views/pages/admin/BookingListAdmin'
+import BunkDetailsAdmin from './views/pages/admin/BunkdetailsUpdateAdmin'
 
 
 
@@ -35,6 +37,8 @@ function App() {
       <Route path='/admin/login' element={<AdminLoginPage/>}/>
       <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
       <Route path='/admin/EvBunkPage' element={<AdminEvBunkPage/>}/>
+      <Route path='/admin/bookingLists' element={<BookingListAdmin/>}/>
+      <Route path='/admin/BunkDetailsAdmin' element={<BunkDetailsAdmin/>}/>
       
     </Routes>
     
