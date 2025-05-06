@@ -1,0 +1,339 @@
+/* Admin Sidebar Navigation Styles */
+:root {
+    --sidebar-width: 280px;
+    --sidebar-bg: #000000;
+    --sidebar-text: #ffffff;
+    --sidebar-hover: #222222;
+    --sidebar-active: #ffffff;
+    --sidebar-icon: #cccccc;
+    --sidebar-border: #333333;
+    --transition-speed: 0.3s;
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Toggle Button */
+  .adminNavToggleBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    
+    background-color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10001;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-speed);
+  }
+  
+  .adminNavToggleBtn:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .adminNavToggleBtn svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Sidebar Container */
+  .adminNavContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    animation: slideIn var(--transition-speed) ease-out;
+    overflow-y: auto;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Logo Section */
+  .adminNavLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--sidebar-border);
+    margin-bottom: 10px;
+  }
+  
+  .adminNavLogo img {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    margin: 0 auto !important;
+    object-fit: cover;
+    transition: transform var(--transition-speed);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ffffff;
+  }
+  
+  .adminNavLogo img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Navigation Items */
+  .adminNavList {
+    list-style: none;
+    padding: 10px 15px;
+    margin: 0;
+    flex-grow: 1;
+  }
+  
+  .adminNavItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color var(--transition-speed);
+  }
+  
+  .adminNavItem:hover {
+    background-color: var(--sidebar-hover);
+  }
+  
+  .adminNavItemActive {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+  }
+  
+  .adminNavIconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: var(--sidebar-icon);
+    margin-right: 12px;
+  }
+  
+  .adminNavItemActive .adminNavIconContainer {
+    color: var(--sidebar-active);
+  }
+  
+  .adminNavLabel {
+    font-size: 14px;
+    flex-grow: 1;
+  }
+  
+  .adminNavItemActive .adminNavLabel {
+    color: var(--sidebar-active);
+  }
+  
+  .adminNavActiveIndicator {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    background-color: var(--sidebar-active);
+    border-radius: 2px;
+  }
+  
+  /* User Section */
+  .adminNavUserSection {
+    padding: 15px;
+    border-top: 1px solid var(--sidebar-border);
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  .adminNavUserAvatar {
+    width: 42px;
+    height: 42px;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .adminNavUserInfo {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .adminNavUserName {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .adminNavUserRole {
+    font-size: 12px;
+    color: #cccccc;
+  }
+  
+  /* Logout Button */
+  .adminNavContainer button:last-child {
+    margin: 15px auto !important;
+    width: 85% !important;
+    padding: 10px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    transition: all var(--transition-speed) !important;
+    background-color: white !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;
+  }
+  
+  .adminNavContainer button:last-child:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Logout Modal */
+  .logoutModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  .logoutModalBox {
+    width: 300px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: scaleIn 0.3s ease-out;
+    border: 2px solid #000000;
+  }
+  
+  .logoutModalBox h5 {
+    color: #000000;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .logoutModalButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .logoutModalButtons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .logoutCancelBtn {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+  }
+  
+  .logoutCancelBtn:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .logoutConfirmBtn {
+    background-color: #000000;
+    color: white;
+    border: 1px solid #000000;
+  }
+  
+  .logoutConfirmBtn:hover {
+    background-color: #333333;
+  }
+  .adminNavImageIcon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 150px;
+  }
+  
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes scaleIn {
+    from { 
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to { 
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .adminNavContainer {
+      width: 260px;
+    }
+    
+    .adminNavLogo img {
+      margin-left: 0 !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .adminNavContainer {
+      width: 100%;
+    }
+    
+    .adminNavToggleBtn {
+      top: 10px;
+      left: 10px;
+    }
+    
+    .logoutModalBox {
+      width: calc(100% - 40px);
+      max-width: 300px;
+    }
+  }

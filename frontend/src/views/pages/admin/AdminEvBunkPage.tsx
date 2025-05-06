@@ -4,6 +4,7 @@ import Lottie from "react-lottie";
 import animationData from "../../../assets/animations/Animation - 1745829370634-successAnimtion.json";
 import api from "../../../services/axiosInstance";
 import { Options } from "react-lottie";
+import AdminNav from "../../partials/admin/SideBarAdmin";
 
 interface FormData {
   name?: string;
@@ -336,6 +337,8 @@ const AdminEvBunkPage: React.FC = () => {
   };
 
   return (
+    <>
+    <AdminNav/>
     <div
       className={`adminEvBunkPage ${isLoaded ? "adminEvBunkPage--loaded" : ""}`}
     >
@@ -908,6 +911,7 @@ const AdminEvBunkPage: React.FC = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

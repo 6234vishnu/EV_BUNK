@@ -325,51 +325,50 @@ const BunkListPage: React.FC = () => {
 
       {FindNearestBunkModal && (
         <div className="findNearestBunk__modalOverlay">
-
-        <div className="findNearestBunk__container">
-          <div style={{position:"absolute"}}>
-          <button
-            className="bunk-close-button"
-            onClick={() => setFindNearestBunkModal(false)}
-          >
-            Close
-          </button>
-          </div>
-          <h2 className="findNearestBunk__title">Nearest EV Bunk</h2>
-
-          {nearest ? (
-            <div className="findNearestBunk__card">
-              <h3>{nearest.name}</h3>
-              <p>
-                {nearest.address}, {nearest.city}
-              </p>
-              <p>
-                Latitude: {nearest.latitude}, Longitude: {nearest.longitude}
-              </p>
-              <p>
-                Distance:{" "}
-                {userLocation && nearest
-                  ? haversineDistance(
-                      userLocation.lat,
-                      userLocation.lon,
-                      nearest.latitude,
-                      nearest.longitude
-                    ).toFixed(2) + " km"
-                  : "N/A"}
-              </p>
+          <div className="findNearestBunk__container">
+            <div style={{ position: "absolute" }}>
               <button
-                className="bunk-action-button"
-                onClick={() => {
-                  navigate("/user/EvBunkPage", { state: { bunk: nearest } });
-                }}
+                className="bunk-close-button"
+                onClick={() => setFindNearestBunkModal(false)}
               >
-                Book This Bunk
+                Close
               </button>
             </div>
-          ) : (
-            <p>Finding nearest bunk...</p>
-          )}
-        </div>
+            <h2 className="findNearestBunk__title">Nearest EV Bunk</h2>
+
+            {nearest ? (
+              <div className="findNearestBunk__card">
+                <h3>{nearest.name}</h3>
+                <p>
+                  {nearest.address}, {nearest.city}
+                </p>
+                <p>
+                  Latitude: {nearest.latitude}, Longitude: {nearest.longitude}
+                </p>
+                <p>
+                  Distance:{" "}
+                  {userLocation && nearest
+                    ? haversineDistance(
+                        userLocation.lat,
+                        userLocation.lon,
+                        nearest.latitude,
+                        nearest.longitude
+                      ).toFixed(2) + " km"
+                    : "N/A"}
+                </p>
+                <button
+                  className="bunk-action-button"
+                  onClick={() => {
+                    navigate("/user/EvBunkPage", { state: { bunk: nearest } });
+                  }}
+                >
+                  Book This Bunk
+                </button>
+              </div>
+            ) : (
+              <p>Finding nearest bunk...</p>
+            )}
+          </div>
         </div>
       )}
     </>

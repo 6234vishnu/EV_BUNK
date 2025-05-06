@@ -11,6 +11,8 @@ import BunkListPage from './views/pages/user/BunkListPage'
 import NewCarsShowcase from './views/pages/user/NewCarsShowcase'
 import BookingListAdmin from './views/pages/admin/BookingListAdmin'
 import BunkDetailsAdmin from './views/pages/admin/BunkdetailsUpdateAdmin'
+import Sidebar from './views/partials/admin/SideBarAdmin'
+import AuthenticateAdmin from './views/partials/admin/AuthenticateAdmin'
 
 
 
@@ -33,12 +35,17 @@ function App() {
   
 
       {/*admin Side */}
-
       <Route path='/admin/login' element={<AdminLoginPage/>}/>
+      <Route  element={<AuthenticateAdmin/>}>
       <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
       <Route path='/admin/EvBunkPage' element={<AdminEvBunkPage/>}/>
       <Route path='/admin/bookingLists' element={<BookingListAdmin/>}/>
       <Route path='/admin/BunkDetailsAdmin' element={<BunkDetailsAdmin/>}/>
+      <Route path='/admin/sidebar' element={<Sidebar/>}/>
+      </Route>
+    
+      
+     
       
     </Routes>
     

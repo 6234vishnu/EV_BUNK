@@ -154,46 +154,47 @@ const UserChargingBunkPage: React.FC = () => {
     return true;
   };
 
-  const handleSubmit =async (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     try {
-console.log("slotTime",formData.slotTime);
+      console.log("slotTime", formData.slotTime);
 
-      const response = await api.post(`/user/bookBunk?userId=${userId}&bunkId=${bunkInfo?._id}`, formData);
-   if(response.data.success){
-    setIsModalOpen(false)
-    setFormData({
-      slotTime: "",
-    bookingDate: "",
-    vehicleNumber: "",
-    connectorType: "",
-    chargingType: "AC",
-    status: "Booked",
-    price: "",
-    })
-   return setSuccessModal(true)
-   }
-   return setMessage(response.data.message)
-
+      const response = await api.post(
+        `/user/bookBunk?userId=${userId}&bunkId=${bunkInfo?._id}`,
+        formData
+      );
+      if (response.data.success) {
+        setIsModalOpen(false);
+        setFormData({
+          slotTime: "",
+          bookingDate: "",
+          vehicleNumber: "",
+          connectorType: "",
+          chargingType: "AC",
+          status: "Booked",
+          price: "",
+        });
+        return setSuccessModal(true);
+      }
+      return setMessage(response.data.message);
     } catch (error) {
-      console.log('error in booking bunk in userChargingBunkPage',error); 
-      setMessage('server error try later')
+      console.log("error in booking bunk in userChargingBunkPage", error);
+      setMessage("server error try later");
     }
   };
 
   useEffect(() => {
     if (!successModal) return;
-  
+
     const timer = setTimeout(() => {
       setSuccessModal(false);
-    }, 3500); 
-  
+    }, 3500);
+
     return () => clearTimeout(timer);
   }, [successModal]);
-  
 
   return (
     <>
@@ -489,7 +490,7 @@ console.log("slotTime",formData.slotTime);
               />
             </div>
             <h2 className="bookingModal-title">Book Charging Slot</h2>
-            <p style={{color:"red"}}>{message}</p>
+            <p style={{ color: "red" }}>{message}</p>
             <form onSubmit={handleSubmit} className="bookingModal-form">
               <input
                 type="text"
@@ -528,8 +529,9 @@ console.log("slotTime",formData.slotTime);
                 onChange={handleChange}
                 required
               >
-                <option value={bunkInfo?.chargingType}>{bunkInfo?.chargingType}</option>
-               
+                <option value={bunkInfo?.chargingType}>
+                  {bunkInfo?.chargingType}
+                </option>
               </select>
               <select
                 name="status"
@@ -565,25 +567,29 @@ console.log("slotTime",formData.slotTime);
           </div>
         </div>
       )}
-      {successModal&&(
+      {successModal && (
         <div className="BookingSuccessUserModalOverlay">
-        <div className="BookingSuccessUserModalContent">
-         
-          <div className="BookingSuccessUserModalHeader">
-            <div className="BookingSuccessUserVideoSpace">
-              {/* You can add your video here */}
-              <video className="BookingSuccessUserVideo" autoPlay muted loop>
-                <source src="\videos\bmw-animated-icon-SuccessMessage.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+          <div className="BookingSuccessUserModalContent">
+            <div className="BookingSuccessUserModalHeader">
+              <div className="BookingSuccessUserVideoSpace">
+                {/* You can add your video here */}
+                <video className="BookingSuccessUserVideo" autoPlay muted loop>
+                  <source
+                    src="\videos\bmw-animated-icon-SuccessMessage.mp4"
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            <div className="BookingSuccessUserMessage">
+              <h2>Booking Successful</h2>
+              <p style={{ color: "green" }}>
+                Your booking has been successfully completed!
+              </p>
             </div>
           </div>
-          <div className="BookingSuccessUserMessage">
-            <h2>Booking Successful</h2>
-            <p style={{color:"green"}}>Your booking has been successfully completed!</p>
-          </div>
         </div>
-      </div>
       )}
     </>
   );
