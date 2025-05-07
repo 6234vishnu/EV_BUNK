@@ -13,6 +13,9 @@ import BookingListAdmin from './views/pages/admin/BookingListAdmin'
 import BunkDetailsAdmin from './views/pages/admin/BunkdetailsUpdateAdmin'
 import Sidebar from './views/partials/admin/SideBarAdmin'
 import AuthenticateAdmin from './views/partials/admin/AuthenticateAdmin'
+import UserNav from './views/partials/user/UserNav'
+import ContactAndTerms from './views/pages/user/ContactAndTerms'
+import UserProfile from './views/pages/user/UserProfile'
 
 
 
@@ -32,6 +35,9 @@ function App() {
       <Route path='/user/BunkList' element={<BunkListPage/>}/>
       <Route path='/user/EvBunkPage' element={<UserChargingBunkPage/>}/>
       <Route path='/user/latestCars' element={<NewCarsShowcase/>}/>
+      <Route path='/user/Terms-Conditions' element={<ContactAndTerms/>}/>
+      <Route path='/user/Profile' element={<UserProfile/>}/>
+      <Route path='/user/sidebar' element={<UserNav/>}/>
   
 
       {/*admin Side */}
@@ -41,7 +47,7 @@ function App() {
       <Route path='/admin/EvBunkPage' element={<AdminEvBunkPage/>}/>
       <Route path='/admin/bookingLists' element={<BookingListAdmin/>}/>
       <Route path='/admin/BunkDetailsAdmin' element={<BunkDetailsAdmin/>}/>
-      <Route path='/admin/sidebar' element={<Sidebar/>}/>
+  
       </Route>
     
       

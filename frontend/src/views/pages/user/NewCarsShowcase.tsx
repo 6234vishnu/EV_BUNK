@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../assets/css/user/NewCarsShowcase.css";
 import { ArrowLeft, ArrowRight, ChevronDown, Star } from "lucide-react";
+import UserNav from "../../partials/user/UserNav";
 
 // Car data interface
 interface CarSpec {
@@ -188,6 +189,9 @@ const NewCarsShowcase: React.FC = () => {
   };
 
   return (
+    <>
+    <UserNav/>
+   
     <div className="newCarsUserContainer">
       {/* Header Section */}
       <header className="newCarsUserHeader">
@@ -540,6 +544,7 @@ const NewCarsShowcase: React.FC = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

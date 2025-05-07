@@ -4,6 +4,7 @@ import "../../../assets/css/user/BunkListStyles.css";
 import api from "../../../services/axiosInstance";
 import lottieAnimtion from "../../../assets/animations/Animation - 1745388982332.json";
 import { useNavigate } from "react-router-dom";
+import UserNav from "../../partials/user/UserNav";
 
 interface Bunk {
   _id: string;
@@ -211,6 +212,7 @@ const BunkListPage: React.FC = () => {
 
   return (
     <>
+    <UserNav/>
       <div className="bunk-list-page">
         <header className="page-header">
           <div className="header-content">

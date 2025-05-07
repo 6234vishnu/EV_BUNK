@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import fastChargingAnim from "../../../assets/animations/Animation - 1745558547996-adminSideLogo.json";
 import "../../../assets/css/user/userChargingBunk.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import api from "../../../services/axiosInstance";
 
 export interface BookingFormData {
@@ -46,7 +46,7 @@ const UserChargingBunkPage: React.FC = () => {
   const [successModal, setSuccessModal] = useState(false);
   const userId = localStorage.getItem("userId");
   const [message, setMessage] = useState<string>("");
-
+  const navigate=useNavigate()
   const [formData, setFormData] = useState<BookingFormData>({
     slotTime: "",
     bookingDate: "",
@@ -56,6 +56,9 @@ const UserChargingBunkPage: React.FC = () => {
     status: "Booked",
     price: "",
   });
+  if(!bunk){
+    navigate('/user/BunkList')
+  }
 
   useEffect(() => {
     if (bunk) {
