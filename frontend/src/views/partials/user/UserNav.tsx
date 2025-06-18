@@ -66,7 +66,7 @@ const UserNav = () => {
   };
 
   const navItems = [
-    { id: "home", label: "Home", path: "/user/home", icon: <Home /> },
+    { id: "home", label: "Home", path: "/", icon: <Home /> },
     {
       id: "Booking a bunk",
       label: "Booking a bunk",
@@ -149,11 +149,12 @@ const UserNav = () => {
             </div>
             <div className="userNavUserInfo">
               <span className="userNavUserName">{userName}</span>
-              <span className="userNavUserRole">User</span>
+              
             </div>
           </div>
 
-          <button
+          {userId&&(
+            <button
             style={{
               backgroundColor: "white",
               color: "black",
@@ -167,6 +168,7 @@ const UserNav = () => {
             <LogOut style={{ marginRight: "8px" }} size={16} />
             LogOut
           </button>
+          )}
         </nav>
       )}
 
@@ -181,9 +183,11 @@ const UserNav = () => {
               >
                 Cancel
               </button>
-              <button onClick={handleLogout} className="logoutConfirmBtn">
+             
+                <button onClick={handleLogout} className="logoutConfirmBtn">
                 Logout
               </button>
+            
             </div>
           </div>
         </div>

@@ -10,8 +10,7 @@
     padding: 2rem;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-    border-radius: 30px;
-    width: 450px;
+    width: 99vw;
 }
 
 .mainH1TagLoginPage {
@@ -27,6 +26,7 @@
     width: 300px; /* Set the container size */
     height: 300px;
     margin-bottom: 20px; /* Give some spacing between the animation and the button */
+    overflow-y: hidden;
 }
 
 /* Button styles */

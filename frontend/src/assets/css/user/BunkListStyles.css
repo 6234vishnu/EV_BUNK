@@ -211,6 +211,7 @@
     color: white;
     font-weight: bold;
     border-radius: var(--border-radius);
+    margin-top: 10px;
   }
   
   .bunk-action-button:hover:not(.disabled) {

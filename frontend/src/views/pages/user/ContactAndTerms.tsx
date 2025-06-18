@@ -12,7 +12,7 @@ const ContactAndTerms: React.FC = () => {
         <p>If you have any questions or concerns, feel free to reach out to our support team.</p>
         <ul>
           <li><strong>Email:</strong> support@bmwevbunk.com</li>
-          <li><strong>Phone:</strong> +91 98765 43210</li>
+          <li><strong>Phone:</strong> +91 7012143978</li>
           <li><strong>Address:</strong> BMW EV Bunk HQ, Electric Avenue, Bengaluru, India</li>
         </ul>
       </section>

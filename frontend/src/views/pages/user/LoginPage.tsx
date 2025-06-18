@@ -175,7 +175,7 @@ function LoginPage() {
         <h3 className="mainH3TagLoginPage">Login To</h3>
         <h1 className="mainH1TagLoginPage">BMW</h1>
 
-        <div className="animationContainer">
+        <div className="animationContainer" style={{overflowY:"hidden"}}>
           <Lottie animationData={animationData} loop autoplay />
         </div>
         <h5 style={{ color: "red" }}>{message}</h5>

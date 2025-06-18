@@ -4,6 +4,7 @@ import fastChargingAnim from "../../../assets/animations/Animation - 17455585479
 import "../../../assets/css/user/userChargingBunk.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../../../services/axiosInstance";
+import UserNav from "../../partials/user/UserNav";
 
 export interface BookingFormData {
   slotTime: string;
@@ -201,6 +202,7 @@ const UserChargingBunkPage: React.FC = () => {
 
   return (
     <>
+    <UserNav/>
       <div
         className={`adminEvBunkPage ${
           isLoaded ? "adminEvBunkPage--loaded" : ""
@@ -340,12 +342,7 @@ const UserChargingBunkPage: React.FC = () => {
                   >
                     Book a Charge
                   </button>
-                  <button
-                    style={{ color: "black" }}
-                    className="adminEvBunkPage__cta-button adminEvBunkPage__cta-button--secondary"
-                  >
-                    View Availability
-                  </button>
+                  
                 </div>
               </div>
 

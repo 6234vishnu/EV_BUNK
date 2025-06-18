@@ -13,6 +13,7 @@ import {
   bookingLists,
   getUser,
   cancelBooking,
+  getUserAuthenticate,
 } from "../controllers/userControllers/activitiesController";
 const userRoute = express.Router();
 
@@ -30,5 +31,6 @@ userRoute.get("/profile/getDetails", getUser);
 userRoute.get("/getBookingHistory", bookingLists);
 userRoute.post("/bookBunk", bookingBunk);
 userRoute.patch("/cancelBooking/:id", cancelBooking);
+userRoute.get("/getDetails", getUserAuthenticate);
 
 export default userRoute;

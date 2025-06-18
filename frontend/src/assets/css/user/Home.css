@@ -1,0 +1,524 @@
+/* ================== Global Styles ================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.homePageUserContainer {
+  font-family: 'BMW Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: #1a1a1a;
+  overflow-x: hidden;
+  width: 99vw;
+}
+
+/* ================== Hero Section ================== */
+.homePageUserHero {
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+              url('/images/bawp-32-media-portrait.webp') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.homePageUserHero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.homePageUserHeroText {
+  text-align: center;
+  color: white;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.homePageUserHeroText h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  text-shadow: -4px -2px 0px rgb(255 255 255 / 70%);
+    background: linear-gradient(213deg, #000000, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.homePageUserHeroText button {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #0066cc, #004499);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  overflow: hidden;
+}
+
+.homePageUserHeroText button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.homePageUserHeroText button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 102, 204, 0.4);
+}
+
+.homePageUserHeroText button:hover::before {
+  left: 100%;
+}
+
+/* ================== Intro Section ================== */
+.homePageUserIntro {
+  padding: 120px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  position: relative;
+}
+
+.homePageUserIntro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0066cc, #004499, #0066cc);
+}
+
+.homePageUserIntro h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  letter-spacing: 0.02em;
+}
+
+.homePageUserIntro p {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+/* ================== Models Section ================== */
+.homePageUserModels {
+  padding: 120px 20px;
+  background: #1a1a1a;
+  color: white;
+}
+
+.homePageUserModels h3 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.homePageUserModelGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.homePageUserModelCard {
+  background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.homePageUserModelCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0066cc, #00ccff, #0066cc);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.homePageUserModelCard:hover::before {
+  transform: scaleX(1);
+}
+
+.homePageUserModelCard:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 48px rgba(0, 102, 204, 0.2);
+}
+
+.homePageUserModelCard img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.homePageUserModelCard:hover img {
+  transform: scale(1.1);
+}
+
+.homePageUserModelCard h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 1.5rem 1rem;
+  color: #0066cc;
+}
+
+.homePageUserModelCard p {
+  color: #cccccc;
+  margin: 0 1.5rem 1.5rem;
+  line-height: 1.6;
+}
+
+.homePageUserModelCard button {
+  width: calc(100% - 3rem);
+  margin: 0 1.5rem 1.5rem;
+  padding: 12px;
+  background: transparent;
+  color: #0066cc;
+  border: 2px solid #0066cc;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.homePageUserModelCard button:hover {
+  background: #0066cc;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ================== Find Section ================== */
+.homePageUserFind {
+  padding: 120px 20px;
+  background: linear-gradient(135deg, #f0f4f8, #ffffff);
+}
+
+.homePageUserFind h3 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.02em;
+}
+
+.homePageUserFindDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.homePageUserFindDetails ul {
+  list-style: none;
+}
+
+.homePageUserFindDetails li {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+  position: relative;
+  color: #333;
+  font-weight: 500;
+}
+
+.homePageUserFindDetails li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #0066cc;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.homePageUserFindDetails img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.homePageUserFindDetails img:hover {
+  transform: scale(1.05);
+}
+
+/* ================== Finance Section ================== */
+.homePageUserFinance {
+  padding: 120px 20px;
+  background: #0066cc;
+  color: white;
+  text-align: center;
+}
+
+.homePageUserFinance h3 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.homePageUserFinanceBox {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.homePageUserFinanceBox:hover {
+  transform: translateY(-5px);
+}
+
+.homePageUserFinanceBox img {
+  width: 100%;
+ 
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.homePageUserFinanceBox p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ================== FAQ Section ================== */
+.homePageUserFAQ {
+  padding: 120px 20px;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+}
+
+.homePageUserFAQ h3 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.02em;
+}
+
+.homePageUserFAQ ul {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.homePageUserFAQ li {
+  background: white;
+  margin-bottom: 1rem;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-size: 1.1rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.homePageUserFAQ li:hover {
+  transform: translateX(10px);
+  border-left-color: #0066cc;
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 1024px) {
+  .homePageUserFindDetails {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .homePageUserModelGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .homePageUserHero {
+    height: 80vh;
+  }
+  
+  .homePageUserIntro,
+  .homePageUserModels,
+  .homePageUserFind,
+  .homePageUserFinance,
+  .homePageUserFAQ {
+    padding: 80px 15px;
+  }
+  
+  .homePageUserHeroText button {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+  
+  .homePageUserModelGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .homePageUserFindDetails li {
+    font-size: 1.1rem;
+  }
+  
+  .homePageUserFinanceBox {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .homePageUserIntro,
+  .homePageUserModels,
+  .homePageUserFind,
+  .homePageUserFinance,
+  .homePageUserFAQ {
+    padding: 60px 10px;
+  }
+  
+  .homePageUserHeroText h1 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .homePageUserHeroText button {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+  
+  .homePageUserFAQ li {
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .homePageUserFinanceBox {
+    padding: 1rem;
+  }
+}
+
+/* ================== Animations ================== */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ================== Scroll Animations ================== */
+@media (prefers-reduced-motion: no-preference) {
+  .homePageUserModelCard {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+  
+  .homePageUserModelCard:nth-child(even) {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+}
+
+/* ================== Dark Mode Support ================== */
+@media (prefers-color-scheme: dark) {
+  .homePageUserContainer {
+    color: #f0f0f0;
+  }
+  
+  .homePageUserIntro,
+  .homePageUserFind,
+  .homePageUserFAQ {
+    background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+  }
+  
+  .homePageUserIntro h2,
+  .homePageUserFind h3,
+  .homePageUserFAQ h3 {
+    color: #f0f0f0;
+  }
+  
+  .homePageUserIntro p {
+    color: #cccccc;
+  }
+  
+  .homePageUserFAQ li {
+    background: #2a2a2a;
+    color: #f0f0f0;
+  }
+  
+  .homePageUserFindDetails li {
+    color: #f0f0f0;
+  }
+}

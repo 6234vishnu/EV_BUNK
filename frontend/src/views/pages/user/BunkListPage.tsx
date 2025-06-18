@@ -27,25 +27,40 @@ interface Bunk {
   landmarks: string[];
 }
 
+interface BunkWithDistance extends Bunk {
+  distance: number;
+}
 const haversineDistance = (
   lat1: number,
   lon1: number,
   lat2: number,
   lon2: number
 ): number => {
+  console.log(`📍 Calculating distance:
+    From: (${lat1}, ${lon1})
+    To:   (${lat2}, ${lon2})
+  `);
+
   const toRad = (value: number) => (value * Math.PI) / 180;
-  const R = 6371;
+  const R = 6371; // Earth's radius in kilometers
+
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
+  const radLat1 = toRad(lat1);
+  const radLat2 = toRad(lat2);
+
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) *
-      Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(radLat1) * Math.cos(radLat2) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // Distance in km
+  const distance = R * c;
+
+  console.log(`📏 Distance: ${distance.toFixed(2)} km`);
+  return distance;
 };
+
 
 const BunkListPage: React.FC = () => {
   const [bunks, setBunks] = useState<Bunk[]>([]);
@@ -54,112 +69,206 @@ const BunkListPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const loadingLottieRef = useRef<HTMLDivElement>(null);
+  const sideAnimationRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [userLocation, setUserLocation] = useState<{
     lat: number;
     lon: number;
   } | null>(null);
-  const [nearest, setNearest] = useState<Bunk | null>(null);
-  const [FindNearestBunkModal, setFindNearestBunkModal] =
-    useState<boolean>(false);
+  const [nearest, setNearest] = useState<BunkWithDistance | null>(null);
+  const [FindNearestBunkModal, setFindNearestBunkModal] = useState<boolean>(false);
+  const [locationLoading, setLocationLoading] = useState<boolean>(false);
+  const [sortedBunks, setSortedBunks] = useState<BunkWithDistance[]>([]);
   const navigate = useNavigate();
   const itemsPerPage = 4;
 
+  // Initialize Lottie animations
   useEffect(() => {
-    if (loadingLottieRef.current) {
-      const anim = lottie.loadAnimation({
-        container: loadingLottieRef.current,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        animationData: lottieAnimtion,
-      });
+    const initializeLottie = (ref: React.RefObject<HTMLDivElement>) => {
+      if (ref.current) {
+        const anim = lottie.loadAnimation({
+          container: ref.current,
+          renderer: "svg",
+          loop: true,
+          autoplay: true,
+          animationData: lottieAnimtion,
+        });
+        return anim;
+      }
+      return null;
+    };
 
-      return () => anim.destroy();
-    }
+    const loadingAnim = initializeLottie(loadingLottieRef as any);
+    const sideAnim = initializeLottie(sideAnimationRef as any);
+
+    return () => {
+      loadingAnim?.destroy();
+      sideAnim?.destroy();
+    };
   }, []);
 
+  // Fetch bunks from API
   useEffect(() => {
     const fetchBunks = async () => {
       try {
         setLoading(true);
+        setError(null);
         const response = await api.get("/user/getBunkList");
+        
         if (response.data.success) {
           setBunks(response.data.bunks);
-          setTotalPages(Math.ceil(response.data.bunks.length / itemsPerPage));
           setError(null);
+        } else {
+          setError(response.data.message || "Failed to fetch bunks");
         }
-        setError(response.data.message);
       } catch (err) {
         setError("Error fetching bunks. Please try again later.");
-        console.error(err);
+        console.error("Error fetching bunks:", err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchBunks();
-  }, [currentPage]);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLocation({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        });
-      },
-      (error) => {
-        console.error("Error getting location", error);
-        alert("Please turn on the location to find the nearest bunk.");
-      }
-    );
   }, []);
 
+  // Get user location
+  useEffect(() => {
+    const getUserLocation = () => {
+      setLocationLoading(true);
+      
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by this browser.");
+        setLocationLoading(false);
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          };
+          setUserLocation(location);
+          setLocationLoading(false);
+          console.log("User location obtained:", location);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          setLocationLoading(false);
+          
+          let errorMessage = "Unable to get your location. ";
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage += "Please allow location access to find nearest bunks.";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage += "Location information is unavailable.";
+              break;
+            case error.TIMEOUT:
+              errorMessage += "Location request timed out.";
+              break;
+            default:
+              errorMessage += "An unknown error occurred.";
+              break;
+          }
+          alert(errorMessage);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 300000 // 5 minutes
+        }
+      );
+    };
+
+    getUserLocation();
+  }, []);
+
+  // Calculate distances and sort bunks when location or bunks change
   useEffect(() => {
     if (userLocation && bunks.length > 0) {
-      const sorted = [...bunks].sort((a, b) => {
-        const distA = haversineDistance(
-          userLocation.lat,
-          userLocation.lon,
-          a.latitude,
-          a.longitude
-        );
-        const distB = haversineDistance(
-          userLocation.lat,
-          userLocation.lon,
-          b.latitude,
-          b.longitude
-        );
-        return distA - distB;
-      });
-      setNearest(sorted[0]);
+      console.log("User location:", userLocation);
+      console.log("Calculating distances for", bunks.length, "bunks");
+      
+      const bunksWithDistance: BunkWithDistance[] = bunks
+        .filter(bunk => {
+          const isValid = bunk.latitude && bunk.longitude && 
+                         !isNaN(bunk.latitude) && !isNaN(bunk.longitude);
+          if (!isValid) {
+            console.warn(`Invalid coordinates for bunk ${bunk.name}: (${bunk.latitude}, ${bunk.longitude})`);
+          }
+          return isValid;
+        })
+        .map((bunk) => {
+          const distance = haversineDistance(
+
+            userLocation.lat,
+            userLocation.lon,
+            bunk.latitude,
+            bunk.longitude
+          );
+          console.log('userlocation longitude',userLocation.lon);
+          console.log('userlocation latitude',userLocation.lat);
+          
+          console.log(`Bunk ${bunk.name}: ${distance.toFixed(2)} km`);
+          return { ...bunk, distance };
+        })
+        .sort((a, b) => a.distance - b.distance);
+
+      setSortedBunks(bunksWithDistance);
+      
+      if (bunksWithDistance.length > 0) {
+        console.log("Nearest bunk:", bunksWithDistance[0].name, 
+                   "Distance:", bunksWithDistance[0].distance.toFixed(2), "km");
+        setNearest(bunksWithDistance[0]);
+      } else {
+        console.log("No valid bunks found with coordinates");
+        setNearest(null);
+      }
     }
   }, [userLocation, bunks]);
 
+  // Handle search and pagination
   const filteredBunks = bunks.filter((bunk) =>
     `${bunk.name} ${bunk.city} ${bunk.address}`
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   );
+
   const paginatedBunks = filteredBunks.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  // Update total pages when search term or bunks change
   useEffect(() => {
-    const total = Math.ceil(
-      bunks.filter((bunk) =>
-        `${bunk.name} ${bunk.city} ${bunk.address}`
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      ).length / itemsPerPage
-    );
-    setTotalPages(total || 1);
-  }, [searchTerm, bunks]);
+    const total = Math.max(1, Math.ceil(filteredBunks.length / itemsPerPage));
+    setTotalPages(total);
+    
+    // Reset to first page if current page is out of range
+    if (currentPage > total) {
+      setCurrentPage(1);
+    }
+  }, [searchTerm, bunks, currentPage, filteredBunks.length]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
+  };
+
+  const handleFindNearestBunk = () => {
+    if (!userLocation) {
+      alert("Please allow location access to find the nearest bunk.");
+      return;
+    }
+    
+    if (!nearest) {
+      alert("No bunks available or still calculating distances.");
+      return;
+    }
+    
+    setFindNearestBunkModal(true);
   };
 
   const renderPagination = () => {
@@ -212,7 +321,7 @@ const BunkListPage: React.FC = () => {
 
   return (
     <>
-    <UserNav/>
+      <UserNav />
       <div className="bunk-list-page">
         <header className="page-header">
           <div className="header-content">
@@ -231,9 +340,15 @@ const BunkListPage: React.FC = () => {
 
               <button
                 className="findNearestBunk__openButton"
-                onClick={() => setFindNearestBunkModal(true)}
+                onClick={handleFindNearestBunk}
+                disabled={locationLoading || !userLocation}
               >
-                Find Nearest EV Bunk
+                {locationLoading 
+                  ? "Getting Location..." 
+                  : !userLocation 
+                    ? "Location Required" 
+                    : "Find Nearest EV Bunk"
+                }
               </button>
             </div>
           </div>
@@ -249,77 +364,91 @@ const BunkListPage: React.FC = () => {
             ) : error ? (
               <div className="error-message">
                 <p>{error}</p>
-                <button onClick={() => setCurrentPage(1)}>Try Again</button>
+                <button onClick={() => window.location.reload()}>Try Again</button>
               </div>
             ) : bunks.length === 0 ? (
               <div className="no-bunks-message">
                 <p>No bunks available at the moment.</p>
               </div>
+            ) : filteredBunks.length === 0 ? (
+              <div className="no-bunks-message">
+                <p>No bunks found matching your search.</p>
+              </div>
             ) : (
               <div className="bunk-grid">
-                {paginatedBunks.map((bunk) => (
-                  <div key={bunk._id} className="bunk-card">
-                    <div className="bunk-details">
-                      <h2>{bunk.name}</h2>
-                      <p style={{ color: "black" }} className="bunk-location">
-                        {bunk.address}, {bunk.city}
-                      </p>
-                      <p style={{ color: "black" }} className="bunk-capacity">
-                        Capacity: {bunk.totalPorts - bunk.availablePorts} /{" "}
-                        {bunk.totalPorts} ports available
-                      </p>
-                      <p
-                        style={{ color: "black" }}
-                        className="bunk-charging-type"
-                      >
-                        Charging Type: {bunk.chargingType}
-                      </p>
-                      <p style={{ color: "black" }} className="bunk-price">
-                        Price: {bunk.pricePerKWh} / kWh (Flat rate:{" "}
-                        {bunk.flatRate})
-                      </p>
-                      <div className="bunk-status">
-                        <span
-                          className={`status-indicator ${
-                            bunk.allowBooking ? "available" : "unavailable"
+                {paginatedBunks.map((bunk) => {
+                  const bunkWithDistance = sortedBunks.find(sb => sb._id === bunk._id);
+                  
+                  return (
+                    <div key={bunk._id} className="bunk-card">
+                      <div className="bunk-details">
+                        <h2>{bunk.name}</h2>
+                        <p style={{ color: "black" }} className="bunk-location">
+                          {bunk.address}, {bunk.city}
+                        </p>
+                        {bunkWithDistance && (
+                          <p style={{ color: "#0066cc", fontWeight: "bold" }} className="bunk-distance">
+                            Distance: {bunkWithDistance.distance.toFixed(2)} km
+                          </p>
+                        )}
+                        <p style={{ color: "black" }} className="bunk-capacity">
+                          Available: {bunk.availablePorts} / {bunk.totalPorts} ports
+                        </p>
+                        <p style={{ color: "black" }} className="bunk-charging-type">
+                          Charging Type: {bunk.chargingType}
+                        </p>
+                        <p style={{ color: "black" }} className="bunk-price">
+                          Price: ₹{bunk.pricePerKWh}/kWh (Flat rate: ₹{bunk.flatRate})
+                        </p>
+                        <div className="bunk-status">
+                          <span
+                            className={`status-indicator ${
+                              bunk.allowBooking && bunk.availablePorts > 0 ? "available" : "unavailable"
+                            }`}
+                          ></span>
+                          <span>
+                            {bunk.allowBooking && bunk.availablePorts > 0 ? "Available" : "Unavailable"}
+                          </span>
+                        </div>
+                        <button
+                          className={`bunk-action-button ${
+                            !bunk.allowBooking || bunk.availablePorts === 0 ? "disabled" : ""
                           }`}
-                        ></span>
-                        <span>
-                          {bunk.allowBooking ? "Available" : "Unavailable"}
-                        </span>
+                          disabled={!bunk.allowBooking || bunk.availablePorts === 0}
+                          onClick={() => {
+                            if (bunk.allowBooking && bunk.availablePorts > 0) {
+                              navigate(`/user/EvBunkPage`, {
+                                state: { bunk: bunk },
+                              });
+                            }
+                          }}
+                        >
+                          {bunk.allowBooking && bunk.availablePorts > 0 ? "Book Now" : "Unavailable"}
+                        </button>
                       </div>
-                      <button
-                        className={`bunk-action-button ${
-                          !bunk.allowBooking ? "disabled" : ""
-                        }`}
-                        disabled={!bunk.allowBooking}
-                        onClick={() => {
-                          if (bunk.allowBooking) {
-                            navigate(`/user/EvBunkPage`, {
-                              state: { bunk: bunk },
-                            });
-                          }
-                        }}
-                      >
-                        {bunk.allowBooking ? "Book Now" : "Unavailable"}
-                      </button>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
 
-            {!loading && !error && bunks.length > 0 && renderPagination()}
+            {!loading && !error && filteredBunks.length > 0 && renderPagination()}
           </main>
 
           <aside className="side-animation">
-            <div className="lottie-container" ref={loadingLottieRef}></div>
+            <div className="lottie-container" ref={sideAnimationRef}></div>
             <div className="info-box">
               <h3>Need Help?</h3>
               <p style={{ color: "black" }}>
                 Contact our support team for assistance with booking.
               </p>
-              <button className="contact-button">Contact Support</button>
+              {userLocation && sortedBunks.length > 0 && (
+                <div style={{ marginTop: "10px", fontSize: "0.9em", color: "#666" }}>
+                  <p>📍 {sortedBunks.length} bunks found near you</p>
+                  <p>Nearest: {sortedBunks[0]?.distance.toFixed(1)} km away</p>
+                </div>
+              )}
+              <button className="contact-button" onClick={()=>navigate("/user/Terms-Conditions")}>Contact Support</button>
             </div>
           </aside>
         </div>
@@ -328,12 +457,12 @@ const BunkListPage: React.FC = () => {
       {FindNearestBunkModal && (
         <div className="findNearestBunk__modalOverlay">
           <div className="findNearestBunk__container">
-            <div style={{ position: "absolute" }}>
+            <div style={{ position: "absolute", top: "10px", right: "10px" }}>
               <button
                 className="bunk-close-button"
                 onClick={() => setFindNearestBunkModal(false)}
               >
-                Close
+                ✕
               </button>
             </div>
             <h2 className="findNearestBunk__title">Nearest EV Bunk</h2>
@@ -341,34 +470,51 @@ const BunkListPage: React.FC = () => {
             {nearest ? (
               <div className="findNearestBunk__card">
                 <h3>{nearest.name}</h3>
-                <p>
-                  {nearest.address}, {nearest.city}
+                <p className="bunk-address">
+                   {nearest.address}, {nearest.city}
                 </p>
-                <p>
-                  Latitude: {nearest.latitude}, Longitude: {nearest.longitude}
+                <p className="bunk-coordinates">
+                  Coordinates: {nearest.latitude.toFixed(6)}, {nearest.longitude.toFixed(6)}
                 </p>
-                <p>
-                  Distance:{" "}
-                  {userLocation && nearest
-                    ? haversineDistance(
-                        userLocation.lat,
-                        userLocation.lon,
-                        nearest.latitude,
-                        nearest.longitude
-                      ).toFixed(2) + " km"
-                    : "N/A"}
+                <p className="bunk-distance-info">
+                   Distance: <strong>{nearest.distance.toFixed(2)} km</strong>
                 </p>
-                <button
-                  className="bunk-action-button"
-                  onClick={() => {
-                    navigate("/user/EvBunkPage", { state: { bunk: nearest } });
-                  }}
-                >
-                  Book This Bunk
-                </button>
+                <div className="bunk-details-summary">
+                  <p> Available Ports: {nearest.availablePorts}/{nearest.totalPorts}</p>
+                  <p> Charging Type: {nearest.chargingType}</p>
+                  <p> Price: ₹{nearest.pricePerKWh}/kWh</p>
+                  <p> {nearest.is24Hours ? "24/7 Available" : "Limited Hours"}</p>
+                </div>
+                <div className="button-group">
+                  <button
+                    className={`bunk-action-button ${
+                      !nearest.allowBooking || nearest.availablePorts === 0 ? "disabled" : ""
+                    }`}
+                    disabled={!nearest.allowBooking || nearest.availablePorts === 0}
+                    onClick={() => {
+                      if (nearest.allowBooking && nearest.availablePorts > 0) {
+                        navigate("/user/EvBunkPage", { state: { bunk: nearest } });
+                      }
+                    }}
+                  >
+                    {nearest.allowBooking && nearest.availablePorts > 0 ? "Book This Bunk" : "Unavailable"}
+                  </button>
+                  <button
+                    className="bunk-action-button secondary"
+                    onClick={() => {
+                      const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${nearest.latitude},${nearest.longitude}`;
+                      window.open(googleMapsUrl, '_blank');
+                    }}
+                  >
+                    Get Directions
+                  </button>
+                </div>
               </div>
             ) : (
-              <p>Finding nearest bunk...</p>
+              <div className="loading-nearest">
+                <p>🔍 Finding nearest bunk...</p>
+                {!userLocation && <p>📍 Please allow location access</p>}
+              </div>
             )}
           </div>
         </div>

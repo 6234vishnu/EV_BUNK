@@ -161,3 +161,25 @@ export const cancelBooking = async (
       .json({ success: false, message: "Internal server error try later" });
   }
 };
+
+export const getUserAuthenticate = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { userId } = req.query;
+    const finduser = await User.findById(userId);
+    if (!finduser)
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint find User" });
+    res.status(200).json({ success: true, admin: finduser });
+  } catch (error) {
+    console.log("Error in getUserAuthenticate:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error, try again later.",
+    });
+  }
+};
