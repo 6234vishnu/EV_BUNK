@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../../services/axiosInstance';
+import { useEffect, useState } from "react";
+import api from "../../../services/axiosInstance";
 import { Navigate, Outlet } from "react-router-dom";
 
 function AuthenticateAdmin() {
@@ -10,14 +10,16 @@ function AuthenticateAdmin() {
   useEffect(() => {
     const getAdmin = async () => {
       try {
-        const response = await api.get(`/admin/role/getDetails?adminId=${adminId}`);
+        const response = await api.get(
+          `/admin/role/getDetails?adminId=${adminId}`
+        );
         if (response.data.success) {
           setAdminExists(true);
         } else {
           setAdminExists(false);
         }
       } catch (error) {
-        console.log('error in AuthenticateAdmin', error);
+        console.log("error in AuthenticateAdmin", error);
         setAdminExists(false);
       } finally {
         setIsLoading(false);

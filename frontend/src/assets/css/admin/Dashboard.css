@@ -1,237 +1,650 @@
-/* Base layout */
+/* ===== CSS RESET & BASE STYLES ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: #000000;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ===== MAIN LAYOUT ===== */
 .adminDashboard {
-    display: flex;
-    min-height: 100vh;
-    background-color: #ffffff;
-    color: #000000;
-    width: 100vw;
-  }
+  min-height: 100vh;
+  background-color: #ffffff;
+  padding-top: 80px; /* Space for AdminNav if fixed */
+}
+
+.adminMain {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== ERROR MESSAGE STYLES ===== */
+.adminMain p[style*="color:red"] {
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  border-left: 4px solid #e53e3e;
+}
+
+/* ===== CONTENT SECTION ===== */
+.adminContent {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 20px 0;
+}
+
+/* ===== CAR CARD STYLES ===== */
+.carCard {
+  background-color: #ffffff;
   
-  /* Logo */
-  .adminLogo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
-  
-  /* Main content */
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 9px 15px rgb(0 0 0 / 10%);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.carCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.carCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #000000, #333333, #000000);
+}
+
+.carCard__logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.carCard__logo img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #000000;
+  padding: 8px;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.carCard h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 25px;
+  letter-spacing: -0.02em;
+}
+
+.carCard > div[style*="display: flex"] {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.carCard > div[style*="display: flex"] img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carCard > div[style*="display: flex"] img:hover {
+  transform: scale(1.05);
+  border-color: #000000;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== DASHBOARD CARDS GRID ===== */
+.dashboardCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #000000;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover::after {
+  transform: scaleX(1);
+}
+
+.card h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* ===== CHARGING STATIONS CARD ===== */
+.card.chargingStations div {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.card.chargingStations div:hover {
+  background-color: #f0f0f0;
+  border-color: #000000;
+}
+
+.card.chargingStations div:last-child {
+  margin-bottom: 0;
+}
+
+.card.chargingStations p {
+  color: #000000;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.card.chargingStations p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== SMART CHARGING CARD ===== */
+.card.smartCharging h4 strong {
+  color: #666666;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.circleGraphPlaceholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border: 4px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000000;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.circleGraphPlaceholder:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.circleGraphPlaceholder::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(45deg, #000000, #666666, #000000);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card.smartCharging:hover .circleGraphPlaceholder::before {
+  opacity: 1;
+}
+
+/* ===== CHART CARD STYLES ===== */
+.adminDashboard__chartCard {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 9px 15px rgb(0 0 0 / 10%);
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.adminDashboard__chartCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.adminDashboard__chartTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.adminDashboard__chartTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: #000000;
+  border-radius: 2px;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
   .adminMain {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    padding: 0 40px;
   }
   
-  /* Header */
-  .adminHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #000000;
-    color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .adminHeader input[type='search'] {
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 1px solid #444;
-    background: #f9f9f9;
-    color: #000;
-    width: 250px;
-  }
-  
-  .adminHeaderIcons {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .adminHeaderIcons img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  /* Content Section */
   .adminContent {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
+    gap: 40px;
+    padding: 30px 0;
+  }
+  
+  .carCard {
+    padding: 40px;
+  }
+  
+  .carCard > div[style*="display: flex"] img {
+    width: 220px;
+    height: 165px;
+  }
+  
+  .dashboardCards {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+  }
+}
+
+/* Desktop (1200px - 1399px) */
+@media (max-width: 1399px) {
+  .carCard > div[style*="display: flex"] img {
+    width: 180px;
+    height: 135px;
+  }
+}
+
+/* Large Tablet (1024px - 1199px) */
+@media (max-width: 1199px) {
+  .adminMain {
+    padding: 0 15px;
+  }
+  
+  .carCard h2 {
+    font-size: 1.75rem;
+  }
+  
+  .carCard > div[style*="display: flex"] img {
+    width: 160px;
+    height: 120px;
+  }
+  
+  .dashboardCards {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
   }
   
-  /* Car Card */
-  .carCard {
-    background: #171717;
-    color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    text-align: center;
+  .circleGraphPlaceholder {
+    width: 120px;
+    height: 120px;
+    font-size: 1.3rem;
   }
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+  .adminDashboard {
+    padding-top: 70px;
+  }
+  
+  .adminContent {
+    gap: 25px;
+    padding: 15px 0;
+  }
+  
+  .carCard {
+    padding: 25px;
+  }
+  
+  .carCard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .carCard__logo img {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .carCard > div[style*="display: flex"] {
+    gap: 12px;
+  }
+  
+  .carCard > div[style*="display: flex"] img {
+    width: 140px;
+    height: 105px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .adminDashboard__chartCard {
+    padding: 25px;
+  }
+  
+  .adminDashboard__chartTitle {
+    font-size: 1.3rem;
+  }
+}
+
+/* Large Mobile (600px - 767px) */
+@media (max-width: 767px) {
+  .adminMain {
+    padding: 0 10px;
+  }
+  
+  .adminDashboard {
+    padding-top: 60px;
+  }
+  
+  .adminContent {
+    gap: 20px;
+  }
+  
+  .carCard {
+    padding: 20px;
+  }
+  
+  .carCard h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
   .carCard__logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   
   .carCard__logo img {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
-    animation: spin 6s linear infinite;
   }
   
-  /* Animation keyframes */
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  .carCard img {
-    max-width: 360px;
-    height: auto;
-    margin: 15px 0;
+  .carCard > div[style*="display: flex"] {
+    gap: 10px;
   }
   
-  .carCard button {
-    background: #000000;
-    color: white;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  .carCard > div[style*="display: flex"] img {
+    width: 120px;
+    height: 90px;
   }
   
-  /* Map Card */
-  .mapCard {
-    background: #f1f1f1;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  }
-  
-  .mapCard .mapPlaceholder {
-    background: #cccccc;
-    height: 200px;
-    margin-top: 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Dashboard Cards Grid */
   .dashboardCards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .card {
-    background: #f1f1f1;
     padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   }
   
-  /* Schedule Card */
-  .card.schedule ul {
-    padding-left: 18px;
-    margin: 10px 0;
+  .card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
   }
   
-  .card.schedule button {
-    background: #000000;
-    color: white;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  .circleGraphPlaceholder {
+    width: 110px;
+    height: 110px;
+    font-size: 1.2rem;
   }
   
-  /* Smart Charging */
-  .card.smartCharging .circleGraphPlaceholder {
-    background: #cccccc;
-    height: 100px;
-    border-radius: 50%;
-    font-size: 24px;
-    color: #000000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
-  }
-  
-  /* Booking Chart */
   .adminDashboard__chartCard {
-    background-color: #f1f1f1;
-    border-radius: 12px;
     padding: 20px;
-    margin-top: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   }
   
   .adminDashboard__chartTitle {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 1.2rem;
     margin-bottom: 20px;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .adminHeader input[type='search'] {
-      width: 180px;
-    }
+}
+
+/* Mobile (480px - 599px) */
+@media (max-width: 599px) {
+  .carCard > div[style*="display: flex"] {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
   
-  @media (max-width: 768px) {
-    .adminHeader {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-  
-    .adminHeader input[type='search'] {
-      width: 100%;
-    }
-  
-    .dashboardCards {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-  
-    .mapCard .mapPlaceholder {
-      height: 150px;
-    }
+  .carCard > div[style*="display: flex"] img {
+    width: 200px;
+    height: 150px;
   }
   
-  @media (max-width: 480px) {
-    .adminContent {
-      padding: 10px;
-    }
-  
-    .carCard,
-    .mapCard,
-    .card {
-      padding: 15px;
-    }
-  
-    .adminDashboard__chartTitle {
-      font-size: 18px;
-    }
-  
-    .adminHeaderIcons {
-      gap: 10px;
-    }
-  
-    .adminHeaderIcons img {
-      width: 30px;
-      height: 30px;
-    }
+  .circleGraphPlaceholder {
+    width: 100px;
+    height: 100px;
+    font-size: 1.1rem;
   }
   
+  .card.chargingStations div {
+    padding: 12px;
+  }
+  
+  .card.chargingStations p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Small Mobile (360px - 479px) */
+@media (max-width: 479px) {
+  .adminMain {
+    padding: 0 8px;
+  }
+  
+  .adminContent {
+    gap: 15px;
+  }
+  
+  .carCard {
+    padding: 15px;
+  }
+  
+  .carCard h2 {
+    font-size: 1.2rem;
+  }
+  
+  .carCard__logo img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .carCard > div[style*="display: flex"] img {
+    width: 180px;
+    height: 135px;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+  
+  .card h4 {
+    font-size: 1rem;
+  }
+  
+  .circleGraphPlaceholder {
+    width: 90px;
+    height: 90px;
+    font-size: 1rem;
+  }
+  
+  .adminDashboard__chartCard {
+    padding: 15px;
+  }
+  
+  .adminDashboard__chartTitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra Small Mobile (320px - 359px) */
+@media (max-width: 359px) {
+  .carCard > div[style*="display: flex"] img {
+    width: 160px;
+    height: 120px;
+  }
+  
+  .circleGraphPlaceholder {
+    width: 80px;
+    height: 80px;
+    font-size: 0.9rem;
+  }
+  
+  .card.chargingStations div {
+    padding: 10px;
+  }
+  
+  .adminDashboard__chartTitle {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+}
+
+/* ===== ACCESSIBILITY & PERFORMANCE ===== */
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .carCard__logo img {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .carCard,
+  .card,
+  .adminDashboard__chartCard {
+    border-width: 3px;
+  }
+  
+  .carCard > div[style*="display: flex"] img {
+    border-width: 3px;
+  }
+  
+  .circleGraphPlaceholder {
+    border-width: 5px;
+  }
+}
+
+/* Focus states for accessibility */
+.carCard:focus,
+.card:focus,
+.adminDashboard__chartCard:focus {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .adminDashboard {
+    padding-top: 0;
+  }
+  
+  .carCard,
+  .card,
+  .adminDashboard__chartCard {
+    box-shadow: none;
+    border: 2px solid #000000;
+    break-inside: avoid;
+  }
+  
+  .carCard:hover,
+  .card:hover,
+  .adminDashboard__chartCard:hover {
+    transform: none;
+  }
+}

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Home,
   User,
   Calendar,
   CreditCard,
   X,
-  Menu,
   ClipboardList,
   LogOut,
 } from "lucide-react";
@@ -149,25 +148,24 @@ const UserNav = () => {
             </div>
             <div className="userNavUserInfo">
               <span className="userNavUserName">{userName}</span>
-              
             </div>
           </div>
 
-          {userId&&(
+          {userId && (
             <button
-            style={{
-              backgroundColor: "white",
-              color: "black",
-              borderRadius: "10px",
-              padding: "10px 20px",
-              border: "1px solid black",
-              margin: "10px",
-            }}
-            onClick={() => setShowLogoutModal(true)}
-          >
-            <LogOut style={{ marginRight: "8px" }} size={16} />
-            LogOut
-          </button>
+              style={{
+                backgroundColor: "white",
+                color: "black",
+                borderRadius: "10px",
+                padding: "10px 20px",
+                border: "1px solid black",
+                margin: "10px",
+              }}
+              onClick={() => setShowLogoutModal(true)}
+            >
+              <LogOut style={{ marginRight: "8px" }} size={16} />
+              LogOut
+            </button>
           )}
         </nav>
       )}
@@ -183,11 +181,10 @@ const UserNav = () => {
               >
                 Cancel
               </button>
-             
-                <button onClick={handleLogout} className="logoutConfirmBtn">
+
+              <button onClick={handleLogout} className="logoutConfirmBtn">
                 Logout
               </button>
-            
             </div>
           </div>
         </div>

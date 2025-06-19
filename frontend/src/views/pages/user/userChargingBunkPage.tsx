@@ -47,7 +47,7 @@ const UserChargingBunkPage: React.FC = () => {
   const [successModal, setSuccessModal] = useState(false);
   const userId = localStorage.getItem("userId");
   const [message, setMessage] = useState<string>("");
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<BookingFormData>({
     slotTime: "",
     bookingDate: "",
@@ -57,8 +57,8 @@ const UserChargingBunkPage: React.FC = () => {
     status: "Booked",
     price: "",
   });
-  if(!bunk){
-    navigate('/user/BunkList')
+  if (!bunk) {
+    navigate("/user/BunkList");
   }
 
   useEffect(() => {
@@ -202,7 +202,7 @@ const UserChargingBunkPage: React.FC = () => {
 
   return (
     <>
-    <UserNav/>
+      <UserNav />
       <div
         className={`adminEvBunkPage ${
           isLoaded ? "adminEvBunkPage--loaded" : ""
@@ -342,7 +342,6 @@ const UserChargingBunkPage: React.FC = () => {
                   >
                     Book a Charge
                   </button>
-                  
                 </div>
               </div>
 
