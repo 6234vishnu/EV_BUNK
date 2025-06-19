@@ -9,18 +9,22 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT =  5000;
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-  cors({
-    methods: "GET,POST,PUT,PATCH,DELETE,OPTIONS",
-    origin: process.env.FRONTEND_URL,
-    allowedHeaders: "Content-Type, Authorization",
-    credentials: true,
-  })
-);
+const allowedOrigins = [process.env.FRONTEND_URL,PORT];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");
