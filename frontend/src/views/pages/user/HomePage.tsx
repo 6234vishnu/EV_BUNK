@@ -1,23 +1,23 @@
-import '../../../assets/css/user/Home.css';
-import UserNav from '../../partials/user/UserNav';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import i4 from '/images/cosySec.png';
-import i5 from '/images/cosySec (2).webp';
-import i7 from '/images/cosySec (1).webp';
-import * as THREE from 'three';
-import ix from '/images/cosySec (3).webp';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import "../../../assets/css/user/Home.css";
+import UserNav from "../../partials/user/UserNav";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import i4 from "/images/cosySec.png";
+import i5 from "/images/cosySec (2).webp";
+import i7 from "/images/cosySec (1).webp";
+import * as THREE from "three";
+import ix from "/images/cosySec (3).webp";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-const modelImages: Record<'i4' | 'i5' | 'i7' | 'ix', string> = {
+const modelImages: Record<"i4" | "i5" | "i7" | "ix", string> = {
   i4,
   i5,
   i7,
   ix,
 };
 
-const modelKeys = ['i4', 'i5', 'i7', 'ix'] as const;
-type ModelKey = typeof modelKeys[number];
+const modelKeys = ["i4", "i5", "i7", "ix"] as const;
+type ModelKey = (typeof modelKeys)[number];
 
 interface BMW360ViewerProps {
   className?: string;
@@ -26,9 +26,9 @@ interface BMW360ViewerProps {
 }
 
 const HomePage: React.FC<BMW360ViewerProps> = ({
-  className = '',
+  className = "",
   autoRotateSpeed = 0.5,
-  rotationStep = Math.PI / 16
+  rotationStep = Math.PI / 16,
 }) => {
   const modelsSectionRef = useRef<HTMLDivElement | null>(null);
   const mixerRef = useRef<THREE.AnimationMixer | null>(null);
@@ -49,12 +49,12 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
       cancelAnimationFrame(animationRef.current);
       animationRef.current = null;
     }
-    
+
     if (rendererRef.current) {
       rendererRef.current.dispose();
       rendererRef.current = null;
     }
-    
+
     if (sceneRef.current) {
       sceneRef.current.clear();
       sceneRef.current = null;
@@ -65,18 +65,19 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
       controlsRef.current = null;
     }
 
-    window.removeEventListener('resize', handleResize);
+    window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleResize = useCallback(() => {
-    if (!canvasRef.current || !cameraRef.current || !rendererRef.current) return;
-    
+    if (!canvasRef.current || !cameraRef.current || !rendererRef.current)
+      return;
+
     const container = canvasRef.current.parentElement;
     if (!container) return;
 
     const width = container.clientWidth;
     const height = container.clientHeight;
-    
+
     cameraRef.current.aspect = width / height;
     cameraRef.current.updateProjectionMatrix();
     rendererRef.current.setSize(width, height);
@@ -102,7 +103,7 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
 
     const loader = new GLTFLoader();
     loader.load(
-      '/models/bmw_x7_m60i.glb',
+      "/models/bmw_x7_m60i.glb",
       (gltf) => {
         const model = gltf.scene;
         model.position.set(0, -0.5, 0);
@@ -162,10 +163,10 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
     if (!sceneRef.current) return;
 
     const groundGeometry = new THREE.PlaneGeometry(40, 40);
-    const groundMaterial = new THREE.MeshLambertMaterial({ 
+    const groundMaterial = new THREE.MeshLambertMaterial({
       color: 0x2a2a4a,
       transparent: true,
-      opacity: 0.9
+      opacity: 0.9,
     });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.rotation.x = -Math.PI / 2;
@@ -190,11 +191,11 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
       cameraRef.current = camera;
 
       // Renderer setup
-      const renderer = new THREE.WebGLRenderer({ 
-        canvas: canvasRef.current, 
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvasRef.current,
         antialias: true,
         alpha: true,
-        powerPreference: "high-performance"
+        powerPreference: "high-performance",
       });
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -218,37 +219,50 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
       setupLighting();
       createGround();
       handleResize();
-      window.addEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
 
       // Start animation
       animate();
       setIsLoading(false);
     } catch (error) {
-      console.error('Error initializing Three.js:', error);
+      console.error("Error initializing Three.js:", error);
       setIsLoading(false);
     }
-  }, [animate, autoRotateEnabled, autoRotateSpeed, createGround, handleResize, loadCarModel, setupLighting]);
+  }, [
+    animate,
+    autoRotateEnabled,
+    autoRotateSpeed,
+    createGround,
+    handleResize,
+    loadCarModel,
+    setupLighting,
+  ]);
 
   useEffect(() => {
     initThreeJS();
     return cleanup;
   }, [initThreeJS, cleanup]);
 
-  const rotateCar = useCallback((direction: String): void => {
-    if (!carRef.current) return;
-    
-    if (direction === 'left') {
-      carRef.current.rotation.y += rotationStep;
-    } else {
-      carRef.current.rotation.y -= rotationStep;
-    }
-    
-    const newRotation = (carRef.current.rotation.y * 180 / Math.PI) % 360;
-    setCurrentRotation(Math.round(newRotation < 0 ? newRotation + 360 : newRotation));
-  }, [rotationStep]);
+  const rotateCar = useCallback(
+    (direction: String): void => {
+      if (!carRef.current) return;
+
+      if (direction === "left") {
+        carRef.current.rotation.y += rotationStep;
+      } else {
+        carRef.current.rotation.y -= rotationStep;
+      }
+
+      const newRotation = ((carRef.current.rotation.y * 180) / Math.PI) % 360;
+      setCurrentRotation(
+        Math.round(newRotation < 0 ? newRotation + 360 : newRotation)
+      );
+    },
+    [rotationStep]
+  );
 
   const toggleAutoRotate = useCallback((): void => {
-    setAutoRotateEnabled(prev => !prev);
+    setAutoRotateEnabled((prev) => !prev);
     if (controlsRef.current) {
       controlsRef.current.autoRotate = !controlsRef.current.autoRotate;
     }
@@ -256,7 +270,7 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
 
   const resetView = useCallback((): void => {
     if (!carRef.current || !controlsRef.current) return;
-    
+
     carRef.current.rotation.y = 0;
     setCurrentRotation(0);
     setAutoRotateEnabled(true);
@@ -266,31 +280,29 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent): void => {
       switch (event.key) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
           event.preventDefault();
-          rotateCar('left');
+          rotateCar("left");
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           event.preventDefault();
-          rotateCar('right');
+          rotateCar("right");
           break;
-        case ' ':
+        case " ":
           event.preventDefault();
           toggleAutoRotate();
           break;
-        case 'r':
-        case 'R':
+        case "r":
+        case "R":
           event.preventDefault();
           resetView();
           break;
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, [rotateCar, toggleAutoRotate, resetView]);
-
-  
 
   return (
     <>
@@ -299,7 +311,11 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
         <section className="homePageUserHero">
           <div className="homePageUserHeroText">
             <h1>BMW ELECTRIC Bunks</h1>
-            <button onClick={() => modelsSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}>
+            <button
+              onClick={() =>
+                modelsSectionRef.current?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
               Explore the Models
             </button>
           </div>
@@ -338,50 +354,56 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
         <section className={`homePageUserFinance ${className}`}>
           <h3>BMW 360° View.</h3>
           <div className="homePageUserFinanceBox">
-            
-<div className="car-viewer-container" style={{
-              width: '100%',
-              height: '70vh',
-              minHeight: '500px',
-              position: 'relative',
-              margin: '2rem 0',
-              backgroundColor: '#1a1a2e',
-              borderRadius: '8px',
-              overflow: 'hidden'
-            }}>
-              <canvas 
-                ref={canvasRef} 
+            <div
+              className="car-viewer-container"
+              style={{
+                width: "100%",
+                height: "70vh",
+                minHeight: "500px",
+                position: "relative",
+                margin: "2rem 0",
+                backgroundColor: "#1a1a2e",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
+            >
+              <canvas
+                ref={canvasRef}
                 id="carCanvas"
                 role="img"
                 aria-label="Interactive 3D BMW car model"
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'block'
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
                 }}
               />
-              
             </div>
-        
-            
-            
-            <div className="info-panel" style={{
-              marginTop: '2rem',
-              padding: '1.5rem',
-              backgroundColor: '#1a1a1a',
-              borderRadius: '8px'
-            }}>
-              <p style={{ fontSize: '1.1rem' }}>
-                Explore flexible BMW financing tailored to your needs. Use the controls above 
-                to view your BMW from every angle and discover the perfect financing solution.
+
+            <div
+              className="info-panel"
+              style={{
+                marginTop: "2rem",
+                padding: "1.5rem",
+                backgroundColor: "#1a1a1a",
+                borderRadius: "8px",
+              }}
+            >
+              <p style={{ fontSize: "1.1rem" }}>
+                Explore flexible BMW financing tailored to your needs. Use the
+                controls above to view your BMW from every angle and discover
+                the perfect financing solution.
               </p>
-              <small style={{ 
-                display: 'block', 
-                marginTop: '15px', 
-                opacity: 0.8,
-                fontSize: '0.9rem'
-              }}>
-                Keyboard shortcuts: ← → (rotate,left,up,down), Zoom (Zoom inn and out)
+              <small
+                style={{
+                  display: "block",
+                  marginTop: "15px",
+                  opacity: 0.8,
+                  fontSize: "0.9rem",
+                }}
+              >
+                Keyboard shortcuts: ← → (rotate,left,up,down), Zoom (Zoom inn
+                and out)
               </small>
             </div>
           </div>
