@@ -31,8 +31,7 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
     name: "",
     email: "",
     phone: "",
-    isAdmin: false,
-    isBlocked: false,
+
   });
 
   const [errors, setErrors] = useState({
@@ -47,8 +46,7 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
         name: user.name,
         email: user.email,
         phone: user.phone,
-        isAdmin: user.isAdmin,
-        isBlocked: user.isBlocked,
+ 
       });
       setErrors({ name: "", email: "", phone: "" });
     }
@@ -109,8 +107,7 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
       name: user?.name || "",
       email: user?.email || "",
       phone: user?.phone || "",
-      isAdmin: user?.isAdmin || false,
-      isBlocked: user?.isBlocked || false,
+  
     });
     setErrors({ name: "", email: "", phone: "" });
     onClose();
@@ -183,35 +180,7 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
             )}
           </div>
 
-          <div className="checkbox-group">
-            <div className="checkbox-item">
-              <input
-                type="checkbox"
-                id="isAdmin"
-                name="isAdmin"
-                checked={formData.isAdmin}
-                onChange={handleInputChange}
-                className="form-checkbox"
-              />
-              <label htmlFor="isAdmin" className="checkbox-label">
-                Admin User
-              </label>
-            </div>
-
-            <div className="checkbox-item">
-              <input
-                type="checkbox"
-                id="isBlocked"
-                name="isBlocked"
-                checked={formData.isBlocked}
-                onChange={handleInputChange}
-                className="form-checkbox"
-              />
-              <label htmlFor="isBlocked" className="checkbox-label">
-                Blocked User
-              </label>
-            </div>
-          </div>
+         
 
           <div className="modal-actions">
             <button type="button" className="btn-cancel" onClick={handleCancel}>
