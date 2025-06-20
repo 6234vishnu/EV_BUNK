@@ -37,7 +37,7 @@ export const userLogin = async (req: Request, res: Response): Promise<any> => {
     res.cookie("userToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -134,9 +134,11 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
     res.cookie("userToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
+
 
     return res.status(200).json({ success: true, userId: savedUser._id });
   } catch (error) {
