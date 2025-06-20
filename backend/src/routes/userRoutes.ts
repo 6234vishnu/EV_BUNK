@@ -14,6 +14,7 @@ import {
   getUser,
   cancelBooking,
   getUserAuthenticate,
+  updateUserProfile
 } from "../controllers/userControllers/activitiesController";
 import { authenticateUser } from "../middlewares/userAuthMiddleware";
 
@@ -32,6 +33,7 @@ userRoute.get("/getBunkList",authenticateUser, getBunks);
 userRoute.get("/profile/getDetails", getUser);
 userRoute.get("/getBookingHistory",authenticateUser, bookingLists);
 userRoute.post("/bookBunk",authenticateUser, bookingBunk);
+userRoute.post("/updateProfile",authenticateUser, updateUserProfile);
 userRoute.patch("/cancelBooking/:id",authenticateUser, cancelBooking);
 userRoute.get("/getDetails", getUserAuthenticate);
 

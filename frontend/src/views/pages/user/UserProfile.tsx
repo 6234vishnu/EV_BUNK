@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../../assets/css/user/proile.css";
 import UserNav from "../../partials/user/UserNav";
 import api from "../../../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import UserUpdateModal from "./userProfileUpdateModal";
 
 interface bookingInfo {
   _id: Object | any;
@@ -15,11 +16,24 @@ interface bookingInfo {
   chargingType: string;
 }
 const BOOKINGS_PER_PAGE = 2;
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  isAdmin: boolean;
+  isBlocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 const UserProfile: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [bookings, setBookings] = useState<bookingInfo | any>([]);
   const [message, setMessage] = useState<string>("");
+  const targetRef = useRef<HTMLDivElement>(null);
   const [selectedBooking, setSelectedBooking] = useState<bookingInfo | null>(
     null
   );
@@ -28,6 +42,12 @@ const UserProfile: React.FC = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [cancelBookingId, setCancelBookingId] = useState<string | null>(null);
+  const [profileUpdateModal, setProfileUpdateModal] = useState<boolean>(false);
+  const [userdetails, setUserDetails] = useState<User | null>(null);
+  const scrollToDiv = () => {
+    targetRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const images = [
     "/images/cosySec (1).webp",
     "/images/cosySec (2).webp",
@@ -41,6 +61,10 @@ const UserProfile: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   useEffect(() => {
     if (showSuccessModal) {
@@ -140,6 +164,41 @@ const UserProfile: React.FC = () => {
     startIdx + BOOKINGS_PER_PAGE
   );
 
+  const handleEditUserModal = async () => {
+    await getUserDetails();
+    setProfileUpdateModal(true);
+  };
+
+  const getUserDetails = async () => {
+    try {
+      const response = await api.get(`/user/getDetails?userId=${userId}`);
+      if (response.data.success) {
+        setUserDetails(response.data.user);
+      }
+      return setMessage(response.data.message);
+    } catch (error: any) {
+      setMessage(error?.response?.data?.message);
+      console.log("error in gettingUser on userprofile page", error);
+    }
+  };
+
+  const handleUpdateUser = async (formData: any) => {
+    try {
+      const response = await api.post(
+        `/user/updateProfile?userId=${userId}`,
+        formData
+      );
+      if (response.data.success) {
+        setMessage("Profile updated successfully");
+        return window.location.reload();
+      }
+      return setMessage(response.data.message);
+    } catch (error: any) {
+      setMessage(error?.response?.data?.message);
+      console.log("error in updateuser", error);
+    }
+  };
+
   return (
     <>
       <UserNav />
@@ -159,13 +218,13 @@ const UserProfile: React.FC = () => {
               <h2 className="userProfileTitle">User Profile</h2>
               <div className="userProfileInfo">
                 <p>
-                  <strong>Name:</strong> John Doe
+                  <strong>Name:</strong> {userdetails?.name}
                 </p>
                 <p>
-                  <strong>Email:</strong> john@example.com
+                  <strong>Email:</strong> {userdetails?.email}
                 </p>
                 <p>
-                  <strong>Phone:</strong> +91 9876543210
+                  <strong>Phone:</strong> {userdetails?.phone}
                 </p>
               </div>
             </div>
@@ -180,15 +239,20 @@ const UserProfile: React.FC = () => {
           </div>
 
           <div className="userProfileButtons">
-            <button className="userProfileBtn editBtn">Edit Profile</button>
-            <button className="userProfileBtn bookingBtn">
+            <button
+              className="userProfileBtn editBtn"
+              onClick={handleEditUserModal}
+            >
+              Edit Profile
+            </button>
+            <button onClick={scrollToDiv} className="userProfileBtn bookingBtn">
               View Past Bookings
             </button>
           </div>
         </div>
       </div>
 
-      <div className="userProfileBookings">
+      <div className="userProfileBookings" ref={targetRef}>
         {currentBookings.map((booking: any) => (
           <div className="bookingCard" key={booking._id}>
             <p>
@@ -320,6 +384,15 @@ const UserProfile: React.FC = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {profileUpdateModal && (
+        <UserUpdateModal
+          isOpen={true}
+          onClose={() => setProfileUpdateModal(false)}
+          user={userdetails}
+          onUpdate={handleUpdateUser}
+        />
       )}
     </>
   );

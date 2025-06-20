@@ -39,10 +39,22 @@ const SignUpPage = () => {
     }));
   };
 
+  const isPasswordStrong = (password: string): boolean => {
+    // At least 8 characters, one uppercase, one lowercase, one number, one special character
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return regex.test(password);
+  };
+
   const handleSignupSubmit = async (e: any) => {
     e.preventDefault();
     if (formdata.password !== formdata.confirmPassword) {
       return setMessage("Passwords didint macth try again");
+    }
+
+    if (!isPasswordStrong(formdata.password)) {
+      return setMessage(
+        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character"
+      );
     }
     if (
       !formdata.fullName &&

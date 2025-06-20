@@ -173,10 +173,45 @@ export const getUserAuthenticate = async (
       return res
         .status(200)
         .json({ success: false, message: "couldint find User" });
-    res.status(200).json({ success: true, admin: finduser });
+    res.status(200).json({ success: true, user: finduser });
   } catch (error) {
     console.log("Error in getUserAuthenticate:", error);
 
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error, try again later.",
+    });
+  }
+};
+export const updateUserProfile = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { userId } = req.query;
+    const finduser = await User.findById(userId);
+    if (!finduser)
+      return res
+        .status(200)
+        .json({ success: false, message: "Could not find user" });
+
+    const { name, email, phone } = req.body;
+
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: { name, email, phone } },
+      { new: true }
+    );
+
+    if (!updateUser) {
+      return res
+        .status(200)
+        .json({ success: false, message: "Could not update user. Try later." });
+    }
+
+    res.status(200).json({ success: true, });
+  } catch (error) {
+    console.log("Error in updateUserProfile:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
