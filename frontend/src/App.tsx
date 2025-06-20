@@ -42,10 +42,7 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/EvBunkPage" element={<AdminEvBunkPage />} />
             <Route path="/admin/bookingLists" element={<BookingListAdmin />} />
-            <Route
-              path="/admin/BunkDetailsAdmin"
-              element={<BunkDetailsAdmin />}
-            />
+            <Route path="/admin/BunkDetailsAdmin" element={<BunkDetailsAdmin />}/>
           </Route>
         </Routes>
       </BrowserRouter>

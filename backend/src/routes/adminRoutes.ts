@@ -1,5 +1,6 @@
 import express from 'express'
 import { loginController,forgotPasswordSendOtp,setNewPassword,adminLogout } from '../controllers/adminControllers/authControllers'
+import { authenticateAdmin } from '../middlewares/adminAuthMiddleware'
 import {createBunk,getBookings,updateBookingStatus,getBunksList,updateBunks,getAdmin,getDashboardData} from '../controllers/adminControllers/AdminRolesController'
 const adminRoutes=express.Router()
 
@@ -12,13 +13,13 @@ adminRoutes.post('/auth/logout',adminLogout)
 
 
 // admin Roles
-adminRoutes.post('/roles/createBunk',createBunk)
-adminRoutes.get('/roles/getBookings',getBookings)
-adminRoutes.patch('/role/updateBookingStatus',updateBookingStatus)
-adminRoutes.get('/role/bunksdetails',getBunksList)
-adminRoutes.patch('/role/Updatebunks/:bunkId',updateBunks)
-adminRoutes.get('/role/getDetails',getAdmin)
-adminRoutes.get('/role/getDashboardData',getDashboardData)
+adminRoutes.post('/roles/createBunk',authenticateAdmin,createBunk)
+adminRoutes.get('/roles/getBookings',authenticateAdmin,getBookings)
+adminRoutes.patch('/role/updateBookingStatus',authenticateAdmin,updateBookingStatus)
+adminRoutes.get('/role/bunksdetails',authenticateAdmin,getBunksList)
+adminRoutes.patch('/role/Updatebunks/:bunkId',authenticateAdmin,updateBunks)
+adminRoutes.post('/role/getDetails',getAdmin)
+adminRoutes.get('/role/getDashboardData',authenticateAdmin,getDashboardData)
 
 
 export default adminRoutes

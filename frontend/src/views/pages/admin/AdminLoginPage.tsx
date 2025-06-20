@@ -1,10 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../../assets/css/admin/adminLogin.css";
 import api from "../../../services/axiosInstance";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const AdminLoginPage: React.FC = () => {
-  const adminLogined = localStorage.getItem("adminId");
+  const adminId=localStorage.getItem("adminId")
+ const navigate = useNavigate();
+
+  useEffect(() => {
+    if (adminId) {
+      navigate("/admin/dashboard");
+    }
+  }, [adminId, navigate]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [forgotPasswordModal, setForgorPasswordModal] =
@@ -18,13 +25,10 @@ const AdminLoginPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [timer, setTimer] = useState<number>(60);
   const [timerStopped, setTimerStopped] = useState<boolean>(false);
-  const navigate = useNavigate();
+ 
+  
+  
 
-  if (adminLogined) {
-    useEffect(() => {
-      navigate("/admin/dashboard");
-    });
-  }
 
   useEffect(() => {
     if (!message) return;

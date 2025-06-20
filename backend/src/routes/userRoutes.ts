@@ -15,6 +15,8 @@ import {
   cancelBooking,
   getUserAuthenticate,
 } from "../controllers/userControllers/activitiesController";
+import { authenticateUser } from "../middlewares/userAuthMiddleware";
+
 const userRoute = express.Router();
 
 // auth controller
@@ -26,11 +28,11 @@ userRoute.post("/auth/newPassword", ResetPassword);
 userRoute.post("/auth/logout", userLogout);
 
 // user Activities
-userRoute.get("/getBunkList", getBunks);
+userRoute.get("/getBunkList",authenticateUser, getBunks);
 userRoute.get("/profile/getDetails", getUser);
-userRoute.get("/getBookingHistory", bookingLists);
-userRoute.post("/bookBunk", bookingBunk);
-userRoute.patch("/cancelBooking/:id", cancelBooking);
+userRoute.get("/getBookingHistory",authenticateUser, bookingLists);
+userRoute.post("/bookBunk",authenticateUser, bookingBunk);
+userRoute.patch("/cancelBooking/:id",authenticateUser, cancelBooking);
 userRoute.get("/getDetails", getUserAuthenticate);
 
 export default userRoute;

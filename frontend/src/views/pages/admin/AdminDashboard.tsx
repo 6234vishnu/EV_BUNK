@@ -11,7 +11,6 @@ import {
 import AdminNav from "../../partials/admin/SideBarAdmin";
 import { useEffect, useState } from "react";
 import api from "../../../services/axiosInstance";
-import { useNavigate } from "react-router-dom";
 
 interface bookingInfo {
   month: string;
@@ -23,56 +22,46 @@ const AdminDashboard = () => {
   const [chargingStations, setChargingStations] = useState<any>([]);
   const [totalAmountThisMonth, setTotalAmountThisMonth] = useState<number>(0);
   const [bookingData, setBookingData] = useState<bookingInfo[]>([]);
-  const adminLogined = localStorage.getItem("adminId");
-  const navigate=useNavigate()
-
-   if (!adminLogined) {
-    useEffect(() => {
-      navigate("/admin/login");
-    });
-  }
 
   useEffect(() => {
     const getDashboardData = async () => {
       try {
         const response = await api.get("/admin/role/getDashboardData");
         if (response.data.success) {
-      
           const { bookings, chargingStations, totalAmountThisMonth } =
             response.data;
 
           setBookingData(bookings);
           setChargingStations(chargingStations);
 
-        return  setTotalAmountThisMonth(totalAmountThisMonth);
+          setTotalAmountThisMonth(totalAmountThisMonth);
         }
-       return setMessage(response.data.message);
+        setMessage(response.data.message);
       } catch (error) {
         console.log("Error fetching dashboard data", error);
-       return setMessage('server error try later')
+        return setMessage("server error try later");
       }
     };
 
     getDashboardData();
   }, []);
 
- useEffect(() => {
-  if (!message) return;
+  useEffect(() => {
+    if (!message) return;
 
-  const timer = setTimeout(() => {
-    setMessage("");
-  }, 3000);
+    const timer = setTimeout(() => {
+      setMessage("");
+    }, 3000);
 
-  return () => clearTimeout(timer);
-}, [message]);
-
+    return () => clearTimeout(timer);
+  }, [message]);
 
   return (
     <>
       <AdminNav />
       <div className="adminDashboard">
         <div className="adminMain">
-        <p style={{color:"red"}}>{message}</p>
+          <p style={{ color: "red" }}>{message}</p>
           <div className="adminContent">
             <div className="carCard">
               <div className="carCard__logo">
@@ -108,7 +97,7 @@ const AdminDashboard = () => {
                 <h4>
                   Total Amount <strong>( this month )</strong>
                 </h4>
-                <div className="circleGraphPlaceholder" >
+                <div className="circleGraphPlaceholder">
                   ₹{totalAmountThisMonth}
                 </div>
               </div>

@@ -10,12 +10,14 @@ function AuthenticateAdmin() {
   useEffect(() => {
     const getAdmin = async () => {
       try {
-        const response = await api.get(
+        const response = await api.post(
           `/admin/role/getDetails?adminId=${adminId}`
         );
         if (response.data.success) {
           setAdminExists(true);
+          console.log("exists");
         } else {
+          console.log("not exists");
           setAdminExists(false);
         }
       } catch (error) {
@@ -33,7 +35,7 @@ function AuthenticateAdmin() {
     }
   }, [adminId]);
 
-  if (isLoading) return null; // Or a loading spinner
+  if (isLoading) return null;
 
   return adminExists ? <Outlet /> : <Navigate to="/admin/login" replace />;
 }

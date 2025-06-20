@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import Bunk from "../../models/bunkSchema";
-import { v2 as cloudinary } from "cloudinary";
 import Booking from "../../models/bookingModel";
 import User from "../../models/userSchema";
-import { startOfMonth, endOfMonth } from 'date-fns';
+import { startOfMonth, endOfMonth } from "date-fns";
 
 export const createBunk = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -38,12 +37,10 @@ export const createBunk = async (req: Request, res: Response): Promise<any> => {
       !supportedConnectors ||
       supportedConnectors.length === 0
     ) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "Missing required fields or invalid data.",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "Missing required fields or invalid data.",
+      });
     }
 
     const bunkExists = await Bunk.findOne({ mapEmbed });
@@ -177,92 +174,88 @@ export const getBunksList = async (
   }
 };
 
-
 export const updateBunks = async (
   req: Request,
   res: Response
 ): Promise<any> => {
+  try {
+    const {
+      name,
+      address,
+      city,
+      contactNo,
+      location,
+      mapEmbed,
+      totalPorts,
+      availablePorts,
+      chargingType,
+      supportedConnectors,
+      pricePerKWh,
+      flatRate,
+      is24Hours,
+      status,
+      allowBooking,
+      landmarks,
+      latitude,
+      longitude,
+    } = req.body.formData;
 
-try {
-  
-const {
-  name,
-  address,
-  city,
-  contactNo,
-  location,
-  mapEmbed,
-  totalPorts,
-  availablePorts,
-  chargingType,
-  supportedConnectors,
-  pricePerKWh,
-  flatRate,
-  is24Hours,
-  status,
-  allowBooking,
-  landmarks,
-  latitude,
-  longitude,
-} = req.body.formData;
+    const bunkID = req.params.bunkId;
 
+    const updateBunk = await Bunk.findByIdAndUpdate(
+      bunkID,
+      {
+        name,
+        address,
+        city,
+        contactNo,
+        location,
+        mapEmbed,
+        totalPorts,
+        availablePorts,
+        chargingType,
+        supportedConnectors,
+        pricePerKWh,
+        flatRate,
+        is24Hours,
+        status,
+        allowBooking,
+        landmarks,
+        latitude,
+        longitude,
+        updatedAt: new Date(),
+      },
+      { new: true }
+    );
 
-const bunkID=req.params.bunkId
+    if (!updateBunk)
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint update Bunks" });
 
-const updateBunk = await Bunk.findByIdAndUpdate(
-  bunkID,
-  {
-    name,
-    address,
-    city,
-    contactNo,
-    location,
-    mapEmbed,
-    totalPorts,
-    availablePorts,
-    chargingType,
-    supportedConnectors,
-    pricePerKWh,
-    flatRate,
-    is24Hours,
-    status,
-    allowBooking,
-    landmarks,
-    latitude,
-    longitude,
-    updatedAt: new Date(),
-  },
-  { new: true } 
-);
-
-
-if(!updateBunk)  return res.status(200).json({ success: false, message: "couldint update Bunks" });
-
-return res.status(200).json({ success: true,message:"bunk Updated SuccessFully"});
-} catch (error) {
-  console.log("Error in updateBunks:", error);
+    return res
+      .status(200)
+      .json({ success: true, message: "bunk Updated SuccessFully" });
+  } catch (error) {
+    console.log("Error in updateBunks:", error);
 
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
     });
-}
+  }
+};
 
-}
-
-
-export const getAdmin = async (
-  req: Request,
-  res: Response
-): Promise<any> => {
-
-
+export const getAdmin = async (req: Request, res: Response): Promise<any> => {
   try {
-   
-    const {adminId}=req.query
-    const findAdmin=await User.findById(adminId)
-    if(!findAdmin)return res.status(200).json({success:false,message:"couldint find Admin"})
-      res.status(200).json({success:true,admin:findAdmin})
+    const { adminId } = req.query;
+    const findAdmin = await User.findOne({ _id: adminId, isAdmin: true });
+
+    if (!findAdmin)
+      return res
+        .status(400)
+        .json({ success: false, message: "couldint find Admin" });
+    res.status(200).json({ success: true, admin: findAdmin });
   } catch (error) {
     console.log("Error in getAdmin:", error);
 
@@ -271,105 +264,105 @@ export const getAdmin = async (
       message: "Internal server error, try again later.",
     });
   }
-}
-
-
+};
 
 export const getDashboardData = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-
   const getMonthName = (monthNumber: number): string => {
     const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
-    return months[monthNumber - 1]; 
+    return months[monthNumber - 1];
   };
 
   try {
-   
     const startOfCurrentMonth = startOfMonth(new Date());
     const endOfCurrentMonth = endOfMonth(new Date());
 
-   
     const getBookings = Booking.aggregate([
       {
         $project: {
-          month: { $month: "$bookingDate" }, 
-          bookingDate: 1, 
+          month: { $month: "$bookingDate" },
+          bookingDate: 1,
         },
       },
       {
         $group: {
-          _id: "$month", 
+          _id: "$month",
           bookings: { $sum: 1 },
         },
       },
       {
-        $sort: { _id: 1 }, 
+        $sort: { _id: 1 },
       },
     ]);
-
 
     const chargingBunks = Bunk.aggregate([
       {
         $group: {
           _id: null,
-          total: { $sum: 1 }, 
+          total: { $sum: 1 },
           available: {
             $sum: {
-              $cond: [{ $eq: ['$status', 'active'] }, 1, 0],
+              $cond: [{ $eq: ["$status", "active"] }, 1, 0],
             },
           },
           unavailable: {
             $sum: {
-              $cond: [{ $eq: ['$status', 'inactive'] }, 1, 0], 
+              $cond: [{ $eq: ["$status", "inactive"] }, 1, 0],
             },
           },
         },
       },
     ]);
 
-   
     const totalAmountsFromBookings = Booking.aggregate([
       {
         $match: {
           bookingDate: {
-            $gte: startOfCurrentMonth, 
-            $lt: endOfCurrentMonth,   
+            $gte: startOfCurrentMonth,
+            $lt: endOfCurrentMonth,
           },
         },
       },
       {
         $group: {
           _id: null,
-          totalAmount: { $sum: '$price' }, 
+          totalAmount: { $sum: "$price" },
         },
       },
     ]);
 
-   
     const [bookings, chargingStations, totalBookings] = await Promise.all([
       getBookings,
       chargingBunks,
       totalAmountsFromBookings,
     ]);
 
-   
     const formattedBookings = bookings.map((booking: any) => ({
       month: getMonthName(booking._id),
       bookings: booking.bookings,
     }));
 
-    
     return res.json({
       success: true,
-      message: 'Dashboard data fetched successfully',
+      message: "Dashboard data fetched successfully",
       bookings: formattedBookings,
       chargingStations,
-      totalAmountThisMonth: totalBookings[0]?.totalAmount || 0, 
+      totalAmountThisMonth: totalBookings[0]?.totalAmount || 0,
     });
   } catch (error) {
     console.log("Error in getDashboardData:", error);

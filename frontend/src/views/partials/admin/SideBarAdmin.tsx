@@ -41,7 +41,7 @@ const AdminNav = () => {
           setMessage(response.data.message);
         }
       } catch (error) {
-        console.log('error in receptionist sidebar', error);
+        console.log('error in get admin data', error);
         setMessage('Server error, try again later');
       }
     };
