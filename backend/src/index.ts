@@ -15,15 +15,16 @@ app.use(cookieParser());
 app.use(express.json());
 
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
-}));
-app.options("*", cors({
+
+const corsOptions = {
   origin: process.env.FRONTEND_URL,
   credentials: true,
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-}));
+  methods: "GET,POST,PUT,DELETE,OPTIONS"
+};
+
+app.use(cors(corsOptions));
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");
