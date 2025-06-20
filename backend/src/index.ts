@@ -13,7 +13,7 @@ const PORT =  5000;
 
 app.use(cookieParser());
 app.use(express.json());
-const allowedOrigins = [process.env.FRONTEND_URL,PORT];
+const allowedOrigins = [process.env.FRONTEND_URL];
 
 app.use(cors({
   origin: function (origin, callback) {
