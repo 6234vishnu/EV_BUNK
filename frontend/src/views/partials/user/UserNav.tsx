@@ -102,7 +102,7 @@ const UserNav = () => {
         )}
       </button>
 
-      <p style={{ color: "white" }}>{message}</p>
+      <p style={{ color: "black" }}>{message}</p>
 
       {isOpen && (
         <nav className="userNavContainer">
