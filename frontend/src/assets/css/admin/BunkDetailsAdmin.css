@@ -3,6 +3,7 @@
   --primary-color: rgb(0, 0, 0);
   --primary-dark: #2980b9;
   --secondary-color: #2ecc71;
+  background-color: white;
   --warning-color: #e67e22;
   --danger-color: #e74c3c;
   --background-light: #f5f7fa;
@@ -316,8 +317,8 @@
 
 @media screen and (max-width: 480px) {
   .bunkdetailsUpdateAdmin-container {
-    margin: 1rem;
-    padding: 1rem;
+    margin: 0rem;
+    
   }
   
   .bunkdetailsUpdateAdmin-grid {

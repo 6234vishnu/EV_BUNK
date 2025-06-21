@@ -23,6 +23,14 @@ const UserNav = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    if (!message) return;
+    const timer = setTimeout(() => {
+      setMessage("");
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [message]);
+
+  useEffect(() => {
     if (!userId) {
       setMessage("Couldn't find any user. Please log in first.");
       return;
