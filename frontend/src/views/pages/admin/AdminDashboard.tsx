@@ -38,7 +38,6 @@ const AdminDashboard = () => {
         }
         setMessage(response.data.message);
       } catch (error) {
-        console.log("Error fetching dashboard data", error);
         return setMessage("server error try later");
       }
     };

@@ -41,8 +41,6 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
   const controlsRef = useRef<OrbitControls | null>(null);
 
   const [autoRotateEnabled, setAutoRotateEnabled] = useState<boolean>(true);
-  const [currentRotation, setCurrentRotation] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const cleanup = useCallback(() => {
     if (animationRef.current) {
@@ -223,10 +221,10 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
 
       // Start animation
       animate();
-      setIsLoading(false);
+      
     } catch (error) {
       console.error("Error initializing Three.js:", error);
-      setIsLoading(false);
+      
     }
   }, [
     animate,
@@ -253,10 +251,8 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
         carRef.current.rotation.y -= rotationStep;
       }
 
-      const newRotation = ((carRef.current.rotation.y * 180) / Math.PI) % 360;
-      setCurrentRotation(
-        Math.round(newRotation < 0 ? newRotation + 360 : newRotation)
-      );
+
+     
     },
     [rotationStep]
   );
@@ -272,7 +268,7 @@ const HomePage: React.FC<BMW360ViewerProps> = ({
     if (!carRef.current || !controlsRef.current) return;
 
     carRef.current.rotation.y = 0;
-    setCurrentRotation(0);
+    
     setAutoRotateEnabled(true);
     controlsRef.current.reset();
   }, []);

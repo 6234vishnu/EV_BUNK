@@ -36,11 +36,6 @@ const haversineDistance = (
   lat2: number,
   lon2: number
 ): number => {
-  console.log(`📍 Calculating distance:
-    From: (${lat1}, ${lon1})
-    To:   (${lat2}, ${lon2})
-  `);
-
   const toRad = (value: number) => (value * Math.PI) / 180;
   const R = 6371; // Earth's radius in kilometers
 
@@ -59,7 +54,6 @@ const haversineDistance = (
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c;
 
-  console.log(`📏 Distance: ${distance.toFixed(2)} km`);
   return distance;
 };
 
@@ -153,7 +147,6 @@ const BunkListPage: React.FC = () => {
           };
           setUserLocation(location);
           setLocationLoading(false);
-          console.log("User location obtained:", location);
         },
         (error) => {
           console.error("Error getting location:", error);
@@ -191,9 +184,6 @@ const BunkListPage: React.FC = () => {
   // Calculate distances and sort bunks when location or bunks change
   useEffect(() => {
     if (userLocation && bunks.length > 0) {
-      console.log("User location:", userLocation);
-      console.log("Calculating distances for", bunks.length, "bunks");
-
       const bunksWithDistance: BunkWithDistance[] = bunks
         .filter((bunk) => {
           const isValid =
@@ -215,10 +205,7 @@ const BunkListPage: React.FC = () => {
             bunk.latitude,
             bunk.longitude
           );
-          console.log("userlocation longitude", userLocation.lon);
-          console.log("userlocation latitude", userLocation.lat);
 
-          console.log(`Bunk ${bunk.name}: ${distance.toFixed(2)} km`);
           return { ...bunk, distance };
         })
         .sort((a, b) => a.distance - b.distance);
@@ -226,16 +213,8 @@ const BunkListPage: React.FC = () => {
       setSortedBunks(bunksWithDistance);
 
       if (bunksWithDistance.length > 0) {
-        console.log(
-          "Nearest bunk:",
-          bunksWithDistance[0].name,
-          "Distance:",
-          bunksWithDistance[0].distance.toFixed(2),
-          "km"
-        );
         setNearest(bunksWithDistance[0]);
       } else {
-        console.log("No valid bunks found with coordinates");
         setNearest(null);
       }
     }

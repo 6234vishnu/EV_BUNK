@@ -88,8 +88,6 @@ export const createBunk = async (req: Request, res: Response): Promise<any> => {
       message: "Bunk created successfully.",
     });
   } catch (error) {
-    console.log("Error in createBunk in adminRolesController:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -114,8 +112,6 @@ export const getBookings = async (
       bookings: getBooking,
     });
   } catch (error) {
-    console.log("Error in createBunk in getBookings:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -144,8 +140,6 @@ export const updateBookingStatus = async (
       success: true,
     });
   } catch (error) {
-    console.log("Error in updateBookingStatus:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -165,8 +159,6 @@ export const getBunksList = async (
         .json({ success: false, message: "couldint get any Bunks" });
     return res.status(200).json({ success: true, bunks: getBunks });
   } catch (error) {
-    console.log("Error in getBunksList:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -237,8 +229,6 @@ export const updateBunks = async (
       .status(200)
       .json({ success: true, message: "bunk Updated SuccessFully" });
   } catch (error) {
-    console.log("Error in updateBunks:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -257,8 +247,6 @@ export const getAdmin = async (req: Request, res: Response): Promise<any> => {
         .json({ success: false, message: "couldint find Admin" });
     res.status(200).json({ success: true, admin: findAdmin });
   } catch (error) {
-    console.log("Error in getAdmin:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -365,7 +353,6 @@ export const getDashboardData = async (
       totalAmountThisMonth: totalBookings[0]?.totalAmount || 0,
     });
   } catch (error) {
-    console.log("Error in getDashboardData:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",

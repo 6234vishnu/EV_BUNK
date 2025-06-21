@@ -55,7 +55,6 @@ const BookingListAdmin: React.FC = () => {
         return setmessage(response.data.message);
       } catch (error) {
         setmessage("server error try later");
-        console.log("error in getBookings adminside BookingListAdmin");
       }
     };
     getBookings();
@@ -79,7 +78,6 @@ const BookingListAdmin: React.FC = () => {
       return setmessage("couldint update Status try later");
     } catch (error) {
       setmessage("server error try later");
-      console.log("error in booking Status update adminside", error);
     }
   };
 
@@ -120,174 +118,174 @@ const BookingListAdmin: React.FC = () => {
 
   return (
     <>
-    <AdminNav/>
-    <div className="bookingListAdmin-container">
-      <div className="bookingListAdmin-branding">
-        <div
-          className={`bookingListAdmin-logo-container ${
-            animatelogo ? "animate" : ""
-          }`}
-          onClick={toggleLogoAnimation}
-        >
-          <div className="bookingListAdmin-logo">
-            <div className="bookingListAdmin-bmw-logo">
-              <div className="bookingListAdmin-bmw-circle">
-                <img
-                  src="\images\png-transparent-bmw-car-logo.png"
-                  alt="logo"
-                />
+      <AdminNav />
+      <div className="bookingListAdmin-container">
+        <div className="bookingListAdmin-branding">
+          <div
+            className={`bookingListAdmin-logo-container ${
+              animatelogo ? "animate" : ""
+            }`}
+            onClick={toggleLogoAnimation}
+          >
+            <div className="bookingListAdmin-logo">
+              <div className="bookingListAdmin-bmw-logo">
+                <div className="bookingListAdmin-bmw-circle">
+                  <img
+                    src="\images\png-transparent-bmw-car-logo.png"
+                    alt="logo"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="bookingListAdmin-brand-text">
-            <h2>BMW</h2>
-            <h3>Charging Network</h3>
+            <div className="bookingListAdmin-brand-text">
+              <h2>BMW</h2>
+              <h3>Charging Network</h3>
 
-            <p style={{ color: "white" }}>{message}</p>
-          </div>
-        </div>
-      </div>
-
-      <header className="bookingListAdmin-header">
-        <h1>Charging Station Bookings</h1>
-        <div className="bookingListAdmin-controls">
-          <div className="bookingListAdmin-search">
-            <input
-              type="text"
-              placeholder="Search by vehicle number, slot time..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="bookingListAdmin-search-input"
-            />
-          </div>
-          <div className="bookingListAdmin-filter">
-            <select
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="bookingListAdmin-filter-select"
-            >
-              <option value="all">All Bookings</option>
-              <option value="booked">Booked</option>
-              <option value="completed">Completed</option>
-              <option value="Charging">Charging</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+              <p style={{ color: "white" }}>{message}</p>
+            </div>
           </div>
         </div>
-      </header>
 
-      {isLoading ? (
-        <div className="bookingListAdmin-loading">
-          <RefreshCw className="bookingListAdmin-loading-icon" size={32} />
-          <p>Loading bookings...</p>
-        </div>
-      ) : filteredBookings.length === 0 ? (
-        <div className="bookingListAdmin-empty">
-          <p>No bookings found matching your criteria.</p>
-        </div>
-      ) : (
-        <div className="bookingListAdmin-grid">
-          {filteredBookings.map((booking) => (
-            <div key={booking._id} className="bookingListAdmin-card">
-              <div className="bookingListAdmin-card-header">
-                <span className={getStatusBadgeClass(booking.status)}>
-                  {booking.status}
-                </span>
-                <span className="bookingListAdmin-price">
-                  <DollarSign size={16} /> ₹{booking.price}
-                </span>
-              </div>
+        <header className="bookingListAdmin-header">
+          <h1>Charging Station Bookings</h1>
+          <div className="bookingListAdmin-controls">
+            <div className="bookingListAdmin-search">
+              <input
+                type="text"
+                placeholder="Search by vehicle number, slot time..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="bookingListAdmin-search-input"
+              />
+            </div>
+            <div className="bookingListAdmin-filter">
+              <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="bookingListAdmin-filter-select"
+              >
+                <option value="all">All Bookings</option>
+                <option value="booked">Booked</option>
+                <option value="completed">Completed</option>
+                <option value="Charging">Charging</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+        </header>
 
-              <div className="bookingListAdmin-card-body">
-                <div className="bookingListAdmin-bmw-indicator">
-                  <div className="bookingListAdmin-bmw-dot"></div>
-                  <div className="bookingListAdmin-bmw-dot"></div>
-                  <div className="bookingListAdmin-bmw-dot"></div>
-                </div>
-                <div className="bookingListAdmin-info-row">
-                  <Truck size={18} />
-                  <span className="bookingListAdmin-vehicle-number">
-                    {booking.vehicleNumber}
+        {isLoading ? (
+          <div className="bookingListAdmin-loading">
+            <RefreshCw className="bookingListAdmin-loading-icon" size={32} />
+            <p>Loading bookings...</p>
+          </div>
+        ) : filteredBookings.length === 0 ? (
+          <div className="bookingListAdmin-empty">
+            <p>No bookings found matching your criteria.</p>
+          </div>
+        ) : (
+          <div className="bookingListAdmin-grid">
+            {filteredBookings.map((booking) => (
+              <div key={booking._id} className="bookingListAdmin-card">
+                <div className="bookingListAdmin-card-header">
+                  <span className={getStatusBadgeClass(booking.status)}>
+                    {booking.status}
+                  </span>
+                  <span className="bookingListAdmin-price">
+                    <DollarSign size={16} /> ₹{booking.price}
                   </span>
                 </div>
 
-                <div className="bookingListAdmin-info-row">
-                  <Clock size={18} />
-                  <span>{booking.slotTime}</span>
+                <div className="bookingListAdmin-card-body">
+                  <div className="bookingListAdmin-bmw-indicator">
+                    <div className="bookingListAdmin-bmw-dot"></div>
+                    <div className="bookingListAdmin-bmw-dot"></div>
+                    <div className="bookingListAdmin-bmw-dot"></div>
+                  </div>
+                  <div className="bookingListAdmin-info-row">
+                    <Truck size={18} />
+                    <span className="bookingListAdmin-vehicle-number">
+                      {booking.vehicleNumber}
+                    </span>
+                  </div>
+
+                  <div className="bookingListAdmin-info-row">
+                    <Clock size={18} />
+                    <span>{booking.slotTime}</span>
+                  </div>
+
+                  <div className="bookingListAdmin-info-row">
+                    <Calendar size={18} />
+                    <span>{formatDate(booking.bookingDate)}</span>
+                  </div>
+
+                  <div className="bookingListAdmin-info-row">
+                    <Battery size={18} />
+                    <span>{booking.connectorType}</span>
+                  </div>
+
+                  <div className="bookingListAdmin-info-row">
+                    <Zap size={18} />
+                    <span>{booking.chargingType}</span>
+                  </div>
                 </div>
 
-                <div className="bookingListAdmin-info-row">
-                  <Calendar size={18} />
-                  <span>{formatDate(booking.bookingDate)}</span>
-                </div>
+                <div className="bookingListAdmin-card-actions">
+                  {booking.status === "Booked" && (
+                    <>
+                      <button
+                        className="bookingListAdmin-btn bookingListAdmin-btn-charging"
+                        onClick={() =>
+                          updateBookingStatus(booking._id, "Charging")
+                        }
+                      >
+                        <span>Start Charging</span>
+                        <ChevronRight size={16} />
+                      </button>
+                      <button
+                        className="bookingListAdmin-btn bookingListAdmin-btn-cancel"
+                        onClick={() =>
+                          updateBookingStatus(booking._id, "Cancelled")
+                        }
+                      >
+                        <span>Cancel</span>
+                        <X size={16} />
+                      </button>
+                    </>
+                  )}
 
-                <div className="bookingListAdmin-info-row">
-                  <Battery size={18} />
-                  <span>{booking.connectorType}</span>
-                </div>
-
-                <div className="bookingListAdmin-info-row">
-                  <Zap size={18} />
-                  <span>{booking.chargingType}</span>
-                </div>
-              </div>
-
-              <div className="bookingListAdmin-card-actions">
-                {booking.status === "Booked" && (
-                  <>
-                    <button
-                      className="bookingListAdmin-btn bookingListAdmin-btn-charging"
-                      onClick={() =>
-                        updateBookingStatus(booking._id, "Charging")
-                      }
-                    >
-                      <span>Start Charging</span>
-                      <ChevronRight size={16} />
-                    </button>
+                  {booking.status === "Charging" && (
                     <button
                       className="bookingListAdmin-btn bookingListAdmin-btn-cancel"
                       onClick={() =>
-                        updateBookingStatus(booking._id, "Cancelled")
+                        updateBookingStatus(booking._id, "Completed")
                       }
                     >
-                      <span>Cancel</span>
+                      <span>Charging Completed</span>
                       <X size={16} />
                     </button>
-                  </>
-                )}
+                  )}
 
-                {booking.status === "Charging" && (
-                  <button
-                    className="bookingListAdmin-btn bookingListAdmin-btn-cancel"
-                    onClick={() =>
-                      updateBookingStatus(booking._id, "Completed")
-                    }
-                  >
-                    <span>Charging Completed</span>
-                    <X size={16} />
-                  </button>
-                )}
-
-                {(booking.status === "Completed" ||
-                  booking.status === "Cancelled") && (
-                  <div className="bookingListAdmin-status-message">
-                    {booking.status === "Completed" ? (
-                      <span>
-                        <Check size={18} /> Charging session completed
-                      </span>
-                    ) : (
-                      <span>
-                        <X size={18} /> Booking cancelled
-                      </span>
-                    )}
-                  </div>
-                )}
+                  {(booking.status === "Completed" ||
+                    booking.status === "Cancelled") && (
+                    <div className="bookingListAdmin-status-message">
+                      {booking.status === "Completed" ? (
+                        <span>
+                          <Check size={18} /> Charging session completed
+                        </span>
+                      ) : (
+                        <span>
+                          <X size={18} /> Booking cancelled
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 };

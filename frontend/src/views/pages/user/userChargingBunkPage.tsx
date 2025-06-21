@@ -164,8 +164,6 @@ const UserChargingBunkPage: React.FC = () => {
     if (!validateForm()) return;
 
     try {
-      console.log("slotTime", formData.slotTime);
-
       const response = await api.post(
         `/user/bookBunk?userId=${userId}&bunkId=${bunkInfo?._id}`,
         formData
@@ -185,7 +183,6 @@ const UserChargingBunkPage: React.FC = () => {
       }
       return setMessage(response.data.message);
     } catch (error) {
-      console.log("error in booking bunk in userChargingBunkPage", error);
       setMessage("server error try later");
     }
   };

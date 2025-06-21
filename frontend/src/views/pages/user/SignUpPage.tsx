@@ -73,8 +73,6 @@ const SignUpPage = () => {
       }
       setMessage(response.data.message);
     } catch (error) {
-      console.log("error in handleSignupSubmit in signup Page", error);
-
       setMessage("server error try later");
     }
   };
@@ -103,7 +101,6 @@ const SignUpPage = () => {
       return setMessage(response.data.message);
     } catch (error) {
       setMessage("server error");
-      console.log("error in sendotp in signup page", error);
     }
   };
 

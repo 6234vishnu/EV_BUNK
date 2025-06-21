@@ -43,8 +43,6 @@ export const userLogin = async (req: Request, res: Response): Promise<any> => {
 
     return res.status(200).json({ success: true, userId: findUser._id });
   } catch (error) {
-    console.log("error in userLogin in userside", error);
-
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
@@ -75,12 +73,9 @@ export const signUpController = async (
     if (!success) {
       res.status(200).json({ success: false, message: "Server Error " });
     }
-    console.log("otp: ", otp);
 
     res.status(200).json({ success: true, otp });
   } catch (error) {
-    console.log("error in signUp controller in userside", error);
-
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
@@ -138,11 +133,8 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-
-
     return res.status(200).json({ success: true, userId: savedUser._id });
   } catch (error) {
-    console.log("Error in createUser:", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
@@ -166,7 +158,6 @@ export const setOtpForgotPassword = async (
 
     return res.status(200).json({ success: true, otp });
   } catch (error) {
-    console.log("Error in setOtpForgotPassword:", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
@@ -215,7 +206,6 @@ export const ResetPassword = async (
 
     return res.status(200).json({ success: true, userId: findUser._id });
   } catch (error) {
-    console.log("Error in ResetPassword:", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal Server Error" });
@@ -240,8 +230,6 @@ export const userLogout = async (req: Request, res: Response): Promise<any> => {
       .status(200)
       .json({ success: true, message: "Logged out successfully" });
   } catch (error) {
-    console.log("error in userLogout admin side");
-
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

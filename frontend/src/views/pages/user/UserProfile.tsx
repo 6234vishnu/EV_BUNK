@@ -45,7 +45,7 @@ const UserProfile: React.FC = () => {
   const [profileUpdateModal, setProfileUpdateModal] = useState<boolean>(false);
   const [userdetails, setUserDetails] = useState<User | null>(null);
   const scrollToDiv = () => {
-    targetRef.current?.scrollIntoView({ behavior: 'smooth' });
+    targetRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const images = [
@@ -107,7 +107,6 @@ const UserProfile: React.FC = () => {
         setMessage(response.data.message);
       } catch (error) {
         setMessage("server error");
-        console.log("error in get Booking profilePage", error);
       }
     };
 
@@ -115,8 +114,6 @@ const UserProfile: React.FC = () => {
   }, []);
 
   const handleViewDetails = (booking: bookingInfo) => {
-    console.log("selected bk", booking);
-
     setSelectedBooking(booking);
     setShowModal(true);
   };
@@ -150,7 +147,6 @@ const UserProfile: React.FC = () => {
       return setMessage(response.data.message);
     } catch (error) {
       setMessage("server error try later");
-      console.log("error in  cancel booking", error);
     } finally {
       setShowConfirmModal(false);
       setCancelBookingId(null);
@@ -178,7 +174,6 @@ const UserProfile: React.FC = () => {
       return setMessage(response.data.message);
     } catch (error: any) {
       setMessage(error?.response?.data?.message);
-      console.log("error in gettingUser on userprofile page", error);
     }
   };
 
@@ -195,7 +190,6 @@ const UserProfile: React.FC = () => {
       return setMessage(response.data.message);
     } catch (error: any) {
       setMessage(error?.response?.data?.message);
-      console.log("error in updateuser", error);
     }
   };
 

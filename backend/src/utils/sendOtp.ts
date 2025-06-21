@@ -17,16 +17,16 @@ export const sendOtp = async (email: string, otp: string) => {
 
     // Send mail with defined transport object
     const info = await transporter.sendMail({
-      from: `"Tata Motors" <${process.env.EMAIL_USER}>`,
+      from: `"BMW" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Your OTP for Tata Motors Signup',
-      html: `<p>Your OTP for Tata Motors signup is: <strong>${otp}</strong>. It is valid for 5 minutes.</p>`,
+      subject: 'Your OTP for BMW Signup',
+      html: `<p>Your OTP for BMW signup is: <strong>${otp}</strong>. It is valid for 5 minutes.</p>`,
     });
 
  
     return true;
   } catch (err) {
-    console.error('Error sending OTP email:', err);
+    
     return false;
   }
 };

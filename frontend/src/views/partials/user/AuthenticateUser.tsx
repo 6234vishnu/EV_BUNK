@@ -1,5 +1,5 @@
-import  { useEffect, useState } from 'react';
-import api from '../../../services/axiosInstance';
+import { useEffect, useState } from "react";
+import api from "../../../services/axiosInstance";
 import { Navigate, Outlet } from "react-router-dom";
 
 function AuthenticateUser() {
@@ -12,12 +12,11 @@ function AuthenticateUser() {
       try {
         const response = await api.get(`/user/getDetails?userId=${userId}`);
         if (response.data.success) {
-            setUserExists(true);
+          setUserExists(true);
         } else {
-            setUserExists(false);
+          setUserExists(false);
         }
       } catch (error) {
-        console.log('error in AuthenticateUser', error);
         setUserExists(false);
       } finally {
         setIsLoading(false);
@@ -31,7 +30,7 @@ function AuthenticateUser() {
     }
   }, [userId]);
 
-  if (isLoading) return null; 
+  if (isLoading) return null;
 
   return userExists ? <Outlet /> : <Navigate to="/login" replace />;
 }

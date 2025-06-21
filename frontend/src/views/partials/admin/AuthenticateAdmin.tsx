@@ -15,13 +15,13 @@ function AuthenticateAdmin() {
         );
         if (response.data.success) {
           setAdminExists(true);
-          console.log("exists");
+          
         } else {
-          console.log("not exists");
+         
           setAdminExists(false);
         }
       } catch (error) {
-        console.log("error in AuthenticateAdmin", error);
+        
         setAdminExists(false);
       } finally {
         setIsLoading(false);

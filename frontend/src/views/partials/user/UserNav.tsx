@@ -39,7 +39,6 @@ const UserNav = () => {
           setMessage(response.data.message);
         }
       } catch (error) {
-        console.log("Error in user sidebar:", error);
         setMessage("Server error, try again later");
       }
     };
@@ -59,7 +58,6 @@ const UserNav = () => {
         setMessage(response.data.message);
       }
     } catch (error) {
-      console.log("Error in handleLogout userNav:", error);
       setMessage("Server error");
     }
   };

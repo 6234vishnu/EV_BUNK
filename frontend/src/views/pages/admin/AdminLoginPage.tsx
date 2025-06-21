@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../../assets/css/admin/adminLogin.css";
 import api from "../../../services/axiosInstance";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AdminLoginPage: React.FC = () => {
-  const adminId=localStorage.getItem("adminId")
- const navigate = useNavigate();
+  const adminId = localStorage.getItem("adminId");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (adminId) {
@@ -25,10 +25,6 @@ const AdminLoginPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [timer, setTimer] = useState<number>(60);
   const [timerStopped, setTimerStopped] = useState<boolean>(false);
- 
-  
-  
-
 
   useEffect(() => {
     if (!message) return;
@@ -52,7 +48,6 @@ const AdminLoginPage: React.FC = () => {
       }
       return setMessage(response.data.message);
     } catch (error) {
-      console.log("error in handleSubmit in admin login", error);
       setMessage("server error");
     }
   };
@@ -88,7 +83,6 @@ const AdminLoginPage: React.FC = () => {
       }
       return setMessage(response.data.message);
     } catch (error) {
-      console.log("error in forgotPassword in admin login", error);
       setMessage("server error");
     }
   };
@@ -134,7 +128,6 @@ const AdminLoginPage: React.FC = () => {
       }
       setMessage(response.data.message);
     } catch (error) {
-      console.log("error in newPassword in admin login", error);
       setMessage("server error");
     }
   };

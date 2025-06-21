@@ -12,7 +12,6 @@ export const getBunks = async (req: Request, res: Response): Promise<any> => {
         .json({ success: false, message: "couldint find any Bunks try later" });
     return res.status(200).json({ success: true, bunks: findBunks });
   } catch (error) {
-    console.log("error in get Bunks in user side activities controller", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal server error try later" });
@@ -84,10 +83,6 @@ export const bookingBunk = async (
       .status(200)
       .json({ success: true, message: "Booking SuccessFull" });
   } catch (error) {
-    console.log(
-      "error in bookingBunk in user side activities controller",
-      error
-    );
     return res
       .status(500)
       .json({ success: false, message: "Internal server error try later" });
@@ -107,10 +102,6 @@ export const bookingLists = async (
         .json({ success: false, message: "couldint get any past bookings" });
     return res.status(200).json({ success: true, bookings: getBookings });
   } catch (error) {
-    console.log(
-      "error in bookingLists in user side activities controller",
-      error
-    );
     return res
       .status(500)
       .json({ success: false, message: "Internal server error try later" });
@@ -127,7 +118,6 @@ export const getUser = async (req: Request, res: Response): Promise<any> => {
         .json({ success: false, message: "couldint find user details" });
     return res.status(200).json({ success: true, user: findUser });
   } catch (error) {
-    console.log("error in getUser in user side activities controller", error);
     return res
       .status(500)
       .json({ success: false, message: "Internal server error try later" });
@@ -152,10 +142,6 @@ export const cancelBooking = async (
 
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(
-      "error in cancelBooking in user side activities controller",
-      error
-    );
     return res
       .status(500)
       .json({ success: false, message: "Internal server error try later" });
@@ -175,8 +161,6 @@ export const getUserAuthenticate = async (
         .json({ success: false, message: "couldint find User" });
     res.status(200).json({ success: true, user: finduser });
   } catch (error) {
-    console.log("Error in getUserAuthenticate:", error);
-
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",
@@ -209,9 +193,8 @@ export const updateUserProfile = async (
         .json({ success: false, message: "Could not update user. Try later." });
     }
 
-    res.status(200).json({ success: true, });
+    res.status(200).json({ success: true });
   } catch (error) {
-    console.log("Error in updateUserProfile:", error);
     return res.status(500).json({
       success: false,
       message: "Internal server error, try again later.",

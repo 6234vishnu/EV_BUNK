@@ -41,8 +41,6 @@ export const loginController = async (
 
     res.status(200).json({ success: true, adminId: findAdmin._id });
   } catch (error) {
-    console.log("error in loginController admin side");
-
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -60,12 +58,9 @@ export const forgotPasswordSendOtp = async (
         .json({ success: false, message: "Admin not found " });
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6 digit OTP
-    console.log("otp: ", otp);
 
     return res.status(200).json({ success: true, otp });
   } catch (error) {
-    console.log("error in forgotPasswordSendOtp admin side");
-
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -111,8 +106,6 @@ export const setNewPassword = async (
       .status(200)
       .json({ success: true, adminId: updateAdminPassword._id });
   } catch (error) {
-    console.log("error in setNewPassword admin side");
-
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -138,8 +131,6 @@ export const adminLogout = async (
       .status(200)
       .json({ success: true, message: "Logged out successfully" });
   } catch (error) {
-    console.log("error in adminLogout admin side");
-
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

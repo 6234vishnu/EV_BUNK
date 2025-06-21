@@ -44,7 +44,7 @@ export const authenticateUser = async (
       });
     }
 
-    console.error("Authentication error:", error);
+    
     return res.status(500).json({
       success: false,
       message: "Internal server error during authentication.",

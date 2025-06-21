@@ -31,7 +31,6 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
     name: "",
     email: "",
     phone: "",
-
   });
 
   const [errors, setErrors] = useState({
@@ -46,7 +45,6 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
         name: user.name,
         email: user.email,
         phone: user.phone,
- 
       });
       setErrors({ name: "", email: "", phone: "" });
     }
@@ -107,7 +105,6 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
       name: user?.name || "",
       email: user?.email || "",
       phone: user?.phone || "",
-  
     });
     setErrors({ name: "", email: "", phone: "" });
     onClose();
@@ -179,8 +176,6 @@ const UserUpdateModal: React.FC<UserUpdateModalProps> = ({
               <span className="error-message">{errors.phone}</span>
             )}
           </div>
-
-         
 
           <div className="modal-actions">
             <button type="button" className="btn-cancel" onClick={handleCancel}>
